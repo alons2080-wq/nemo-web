@@ -1,20 +1,6 @@
-<section class="container section">
-    <div class="header-directo">
-        <h1 class="main-title" style="font-size: 3rem; color: #9146FF;">En Vivo</h1>
-        <p>Acompaña a Nemo en sus retos diarios</p>
+<main class="container">
+    <h2 style="margin-bottom: 20px;">Directo Actual</h2>
+    <div style="width: 100%; aspect-ratio: 16/9; border-radius: 20px; overflow: hidden; border: 1px solid var(--accent);">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/live_stream?channel=UCpP_S_m7_N7O0yX_D9B4w9Q" frameborder="0" allowfullscreen></iframe>
     </div>
-
-    <div class="twitch-container">
-        <div id="twitch-embed"></div>
-    </div>
-</section>
-
-<script src="https://player.twitch.tv/js/embed/v1.js"></script>
-<script>
-    new Twitch.Player("twitch-embed", {
-        channel: "nemo_704",
-        width: "100%",
-        height: "100%",
-        parent: ["nemo-web.onrender.com"] //La pagina de Nemo Oficial
-    });
-</script>
+</main>
