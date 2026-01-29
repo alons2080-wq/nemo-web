@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nemo_704 | Oficial</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-mode"> <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+    <div id="twitch-embed-hidden"></div>
+
+    <header class="main-header">
+        <div class="container navbar">
+            <div class="brand">
+                <div class="logo-circle">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Nemo Logo">
+                </div>
+                <div id="live-status" class="hidden">
+                    <span class="pulse-dot"></span> LIVE
+                </div>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="/" class="nav-item">Inicio</a></li>
+                    <li><a href="/videos" class="nav-item">Videos</a></li>
+                    <li>
+                        <button id="theme-switch" class="theme-btn">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero container">
+            <div class="hero-banner" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{{ url_for('static', filename='images/banner.jpg') }}');">
+                <div class="hero-content">
+                    <h1 class="main-title">NEMO_704</h1>
+                    <p class="subtitle">FNAF | Geometry Dash | Retos Imposibles</p>
+                    
+                    <div class="social-container">
+                        <a href="https://discord.gg/vnFPqaaWFh" target="_blank" class="social-pill discord">
+                            <i class="fab fa-discord"></i> Discord
+                        </a>
+                        <a href="https://tiktok.com/@n.e.m.o_704" target="_blank" class="social-pill tiktok">
+                            <i class="fab fa-tiktok"></i> TikTok
+                        </a>
+                        <a href="https://instagram.com/n.e.m.o.704/?next=/" target="_blank" class="social-pill instagram">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
+                        <a href="https://x.com/nemo_704" target="_blank" class="social-pill twitter">
+                            <i class="fab fa-x-twitter"></i> Twitter
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="videos" class="container section">
+            <h2 class="section-title">Videos Más Populares 🔥</h2>
+            <div class="video-grid">
+                <a href="https://www.youtube.com/watch?v=C1eMcl8txW4" target="_blank" class="video-card">
+                    <div class="v-thumb" style="background-image: url('https://img.youtube.com/vi/C1eMcl8txW4/maxresdefault.jpg')">
+                        <span class="v-rank gold">#1</span>
+                    </div>
+                    <div class="v-info"><h3>La noche más difícil de cada FNAF</h3></div>
+                </a>
+                <a href="https://www.youtube.com/watch?v=LhzGgUS2mIQ" target="_blank" class="video-card">
+                    <div class="v-thumb" style="background-image: url('https://img.youtube.com/vi/LhzGgUS2mIQ/maxresdefault.jpg')">
+                        <span class="v-rank silver">#2</span>
+                    </div>
+                    <div class="v-info"><h3>FNAF 2: Sin máscara (Reto)</h3></div>
+                </a>
+                <a href="https://www.youtube.com/watch?v=C3Yl7DV4ehQ" target="_blank" class="video-card">
+                    <div class="v-thumb" style="background-image: url('https://img.youtube.com/vi/C3Yl7DV4ehQ/maxresdefault.jpg')">
+                        <span class="v-rank bronze">#3</span>
+                    </div>
+                    <div class="v-info"><h3>FNAF 1: Sin puertas</h3></div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>Nemo_704 &copy; 2026 | Sitio Oficial Profesional</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
