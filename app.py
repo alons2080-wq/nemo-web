@@ -9,8 +9,7 @@ def home():
 
 @app.route('/videos')
 def videos():
-    # Aquí pasamos el ID del canal de Nemo para que el JS haga la magia
-    return render_template('videos.html', channel_id="UCpP_S_m7_N7O0yX_D9B4w9Q")
+    return render_template('videos.html')
 
 @app.route('/directos')
 def directos():
