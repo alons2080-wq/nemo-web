@@ -11,10 +11,6 @@ def home():
 def videos():
     return render_template('videos.html')
 
-@app.route('/directos')
-def directos():
-    return render_template('directos.html')
-
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 704))
     app.run(host='0.0.0.0', port=port)
