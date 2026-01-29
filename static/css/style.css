@@ -1,0 +1,105 @@
+:root {
+    --bg: #080808;
+    --card: #121212;
+    --text: #ffffff;
+    --accent: #00f3ff;
+    --twitch: #9146FF;
+    --border: rgba(255, 255, 255, 0.1);
+}
+
+.light-mode {
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --accent: #0077ff;
+    --border: rgba(0, 0, 0, 0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; transition: 0.3s; }
+.container { max-width: 1200px; margin: 0 auto; width: 90%; }
+.hidden { display: none !important; }
+
+/* HEADER */
+.main-header {
+    background: rgba(8, 8, 8, 0.8);
+    backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 1000;
+    padding: 15px 0; border-bottom: 1px solid var(--border);
+}
+.navbar { display: flex; justify-content: space-between; align-items: center; }
+
+.logo-circle {
+    width: 60px; height: 60px; background: #000; border-radius: 50%;
+    border: 2px solid var(--accent); box-shadow: 0 0 15px var(--accent);
+    display: flex; justify-content: center; align-items: center; overflow: hidden;
+}
+.logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+#live-status {
+    background: var(--twitch); color: white; padding: 5px 15px;
+    border-radius: 50px; font-weight: bold; font-size: 0.7rem;
+    margin-left: 10px; display: flex; align-items: center; gap: 6px;
+}
+.pulse-dot { width: 8px; height: 8px; background: white; border-radius: 50%; animation: pulse 1s infinite; }
+
+/* NAV */
+.nav-menu { display: flex; list-style: none; gap: 20px; align-items: center; }
+.nav-item { text-decoration: none; color: var(--text); font-weight: bold; opacity: 0.7; transition: 0.3s; }
+.nav-item:hover { opacity: 1; color: var(--accent); }
+
+.theme-btn {
+    background: var(--card); border: 1px solid var(--border); color: var(--text);
+    width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+}
+
+/* HERO SECTION */
+.hero-banner {
+    height: 450px; border-radius: 30px; margin-top: 20px;
+    background-size: cover; background-position: center;
+    display: flex; align-items: center; justify-content: center;
+}
+.hero-content { text-align: center; }
+
+/* Texto del centro arreglado */
+.main-title {
+    font-size: 5rem; font-weight: 900; letter-spacing: -2px;
+    background: linear-gradient(to bottom, #fff, var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.subtitle { font-size: 1.2rem; color: #aaa; margin-bottom: 30px; }
+
+/* BOTONES DE REDES SOCIALES */
+.social-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+.social-pill {
+    padding: 10px 20px; border-radius: 50px; text-decoration: none;
+    color: white; font-weight: bold; font-size: 0.9rem;
+    transition: 0.3s; display: flex; align-items: center; gap: 10px;
+}
+.social-pill:hover { transform: scale(1.05); filter: brightness(1.2); }
+
+.discord { background: #5865F2; }
+.tiktok { background: #000; border: 1px solid #fff; }
+.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.twitter { background: #1da1f2; }
+
+/* VIDEOS */
+.section { padding: 60px 0; }
+.section-title { margin-bottom: 30px; font-size: 2rem; }
+.video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.video-card {
+    background: var(--card); border-radius: 20px; overflow: hidden;
+    text-decoration: none; color: inherit; border: 1px solid var(--border);
+    transition: 0.3s;
+}
+.video-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+.v-thumb { height: 180px; background-size: cover; background-position: center; position: relative; }
+.v-rank { position: absolute; top: 10px; left: 10px; padding: 5px 12px; border-radius: 5px; font-weight: 900; color: black; }
+.gold { background: #FFD700; }
+.silver { background: #C0C0C0; }
+.bronze { background: #CD7F32; }
+.v-info { padding: 20px; }
+
+@keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
+
+.main-footer { padding: 40px 0; text-align: center; opacity: 0.5; font-size: 0.8rem; }
