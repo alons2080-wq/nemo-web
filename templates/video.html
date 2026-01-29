@@ -1,0 +1,31 @@
+<section class="container section">
+    <h1 class="main-title" style="font-size: 3rem;">Canal de YouTube</h1>
+    <div id="yt-feed" class="youtube-feed">
+        <p>Cargando los últimos videos de Nemo...</p>
+    </div>
+</section>
+
+<script>
+    // Script para traer videos sin API Key (usando RSS2JSON)
+    const channelID = "UCpP_S_m7_N7O0yX_D9B4w9Q"; // Sustituye por el ID real de Nemo
+    const url = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${channelID}`;
+
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            const container = document.getElementById('yt-feed');
+            container.innerHTML = '';
+            data.items.forEach(item => {
+                const videoID = item.link.split('v=')[1];
+                container.innerHTML += `
+                    <div class="yt-video-card">
+                        <img src="https://img.youtube.com/vi/${videoID}/maxresdefault.jpg" style="width:100%">
+                        <div style="padding:15px">
+                            <h3 style="font-size:1rem">${item.title}</h3>
+                            <a href="${item.link}" target="_blank" class="social-pill" style="background:#f00; margin-top:10px; display:inline-flex">Ver Video</a>
+                        </div>
+                    </div>
+                `;
+            });
+        });
+</script>
