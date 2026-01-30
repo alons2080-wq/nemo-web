@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>FORO | NEMOWEB</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="main-header">
+        <div class="navbar">
+            <div class="logo-circle"><img src="{{ url_for('static', filename='images/logo.png') }}"></div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="/">INICIO</a></li>
+                    <li><a href="/videos">VIDEOS</a></li>
+                    <li><a href="/foro">FORO</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        {% if not session.get('user') %}
+        <div class="auth-container">
+            <h2 class="section-title">Únete a la Comunidad</h2>
+            <div class="auth-box">
+                <form action="/login" method="POST">
+                    <h3>Iniciar Sesión</h3>
+                    <input type="text" name="username" placeholder="Usuario" required>
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                    <button type="submit" class="btn-nemo">Entrar</button>
+                </form>
+                <hr>
+                <form action="/register" method="POST">
+                    <h3>Registrarse</h3>
+                    <input type="text" name="username" placeholder="Nuevo Usuario" required>
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                    <button type="submit" class="btn-nemo btn-alt">Crear Cuenta</button>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <div class="forum-active">
+            <div class="forum-header">
+                <h2>Bienvenido, {{ session['user'] }} 👋</h2>
+                <a href="/logout" class="logout-link">Cerrar Sesión</a>
+            </div>
+            
+            <div class="post-creator">
+                <textarea placeholder="¿Qué quieres compartir con la comunidad de Nemo?"></textarea>
+                <div class="post-actions">
+                    <button><i class="fas fa-image"></i></button>
+                    <button><i class="fas fa-video"></i></button>
+                    <button class="btn-nemo">Publicar</button>
+                </div>
+            </div>
+            
+            <div class="feed">
+                <p style="text-align: center; color: #888; margin-top: 20px;">No hay publicaciones aún. ¡Sé el primero!</p>
+            </div>
+        </div>
+        {% endif %}
+    </main>
+</body>
+</html>
