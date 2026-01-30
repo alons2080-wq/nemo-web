@@ -2,40 +2,51 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Videos | NEMO_704</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIDEOS | NEMO_704</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <main class="container">
-        <h2 class="section-title">Todos los Videos de Nemo 🎬</h2>
-        <div id="video-feed" class="video-grid">
-            <p style="grid-column: 1/-1; text-align: center; color: var(--accent);">Buscando videos en el canal...</p>
+    <header class="main-header">
+        <div class="navbar">
+            <div class="logo-circle">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Nemo Logo">
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="/">INICIO</a></li>
+                    <li><a href="/videos" class="active">VIDEOS</a></li>
+                    <li><a href="/foro">FORO</a></li>
+                </ul>
+            </nav>
         </div>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title"><i class="fas fa-clapperboard"></i> TODOS LOS VIDEOS DE NEMO</h2>
+        
+        <div class="video-grid">
+            <a href="https://www.youtube.com/watch?v=C1eMcl8txW4" target="_blank" class="video-card">
+                <div class="v-img" style="background-image: url('https://img.youtube.com/vi/C1eMcl8txW4/maxresdefault.jpg');"></div>
+                <div class="v-info"><h3>Completando Minecraft SIN SALTAR</h3></div>
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=LhzGgUS2mIQ" target="_blank" class="video-card">
+                <div class="v-img" style="background-image: url('https://img.youtube.com/vi/LhzGgUS2mIQ/maxresdefault.jpg');"></div>
+                <div class="v-info"><h3>FNAF World SOLO CON LOS PRIMEROS PERSONAJES</h3></div>
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=L9YV1x0p-P0" target="_blank" class="video-card">
+                <div class="v-img" style="background-image: url('https://img.youtube.com/vi/L9YV1x0p-P0/maxresdefault.jpg');"></div>
+                <div class="v-info"><h3>Probando Hytale Por Primera Vez</h3></div>
+            </a>
+            
+            </div>
     </main>
 
-    <script>
-        const channelID = "UCizsH-_19uxQPhyPhjQFDkg";
-        const url = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${channelID}`;
-
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                const container = document.getElementById('video-feed');
-                if(data.status === 'ok') {
-                    container.innerHTML = ''; 
-                    data.items.forEach(item => {
-                        const videoID = item.link.split('v=')[1];
-                        container.innerHTML += `
-                            <a href="${item.link}" target="_blank" class="video-card">
-                                <div class="v-img" style="background-image: url('https://img.youtube.com/vi/${videoID}/maxresdefault.jpg')"></div>
-                                <div class="v-info"><h3>${item.title}</h3></div>
-                            </a>`;
-                    });
-                }
-            })
-            .catch(e => console.error("Error cargando:", e));
-    </script>
+    <footer class="footer">
+        <p>&copy; 2026 NEMO_704 - Una pagina hecha por la comunidad</p>
+    </footer>
 </body>
 </html>
