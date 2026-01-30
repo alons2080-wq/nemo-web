@@ -2,15 +2,26 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FORO | NEMO_704</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
+<body class="foro-page">
+
     <header class="main-header">
         <div class="navbar">
-            <div class="logo-circle"><img src="{{ url_for('static', filename='images/logo.png') }}"></div>
-            <nav><ul class="nav-menu"><li><a href="/">INICIO</a></li><li><a href="/videos">VIDEOS</a></li><li><a href="/foro" class="active">FORO</a></li></ul></nav>
+            <div class="logo-circle">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Nemo">
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="/">INICIO</a></li>
+                    <li><a href="/videos">VIDEOS</a></li>
+                    <li><a href="/foro" class="active">FORO</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
@@ -18,54 +29,98 @@
         {% if not session.get('user') %}
         <div class="auth-grid">
             <div class="auth-card">
-                <h3>Iniciar Sesión</h3>
-                <form action="/login" method="POST" class="input-group">
-                    <input type="text" name="username" placeholder="Usuario" required>
-                    <input type="password" name="password" placeholder="Contraseña" required>
-                    <button type="submit" class="btn-nemo">ENTRAR</button>
+                <h3><i class="fas fa-lock"></i> INICIAR SESIÓN</h3>
+                <form action="/login" method="POST">
+                    <div class="input-group">
+                        <input type="text" name="username" placeholder="Usuario" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" name="password" placeholder="Contraseña" required>
+                    </div>
+                    <button type="submit" class="btn-nemo">ACCEDER</button>
                 </form>
             </div>
+
             <div class="auth-card">
-                <h3>Registro</h3>
-                <form action="/register" method="POST" class="input-group">
-                    <input type="text" name="username" placeholder="Nuevo Usuario" required>
-                    <input type="password" name="password" placeholder="Contraseña" required>
-                    <button type="submit" class="btn-nemo">CREAR CUENTA</button>
+                <h3><i class="fas fa-user-plus"></i> REGISTRO</h3>
+                <form action="/register" method="POST">
+                    <div class="input-group">
+                        <input type="text" name="username" placeholder="Nuevo Usuario" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" name="password" placeholder="Contraseña" required>
+                    </div>
+                    <button type="submit" class="btn-nemo btn-secondary">CREAR CUENTA</button>
                 </form>
             </div>
         </div>
         {% else %}
-        <div class="forum-active">
+        <div class="forum-wrapper">
             <div class="forum-user-bar">
-                <span>Hola, <b>{{ session['user'] }}</b></span>
-                <a href="/logout" class="logout-btn">Cerrar Sesión</a>
+                <div class="user-info">
+                    <i class="fas fa-user-astronaut"></i>
+                    <span>Bienvenido, <b>{{ session['user'] }}</b></span>
+                </div>
+                <a href="/logout" class="logout-btn"><i class="fas fa-power-off"></i> Cerrar Sesión</a>
             </div>
-            <form action="/post" method="POST" class="post-creator-card">
-                <textarea name="content" placeholder="Escribe algo épico..." required></textarea>
-                <button type="submit" class="btn-nemo">PUBLICAR</button>
-            </form>
-            <div class="community-feed">
-                {% for post in posts %}
-                <div class="post-card">
-                    <div class="post-header"><span class="post-author">@{{ post.author }}</span></div>
-                    <div class="post-content">{{ post.content }}</div>
-                    <div class="post-footer-actions">
-                        <a href="/like/{{ post.id }}" class="action-btn"><i class="fas fa-heart"></i> {{ post.likes }}</a>
+
+            <div class="post-creator-card">
+                <form action="/post" method="POST">
+                    <textarea name="content" placeholder="¿Qué tienes en mente hoy, {{ session['user'] }}?" required></textarea>
+                    <div class="creator-footer">
+                        <div class="creator-icons">
+                            <i class="fas fa-image" title="Imagen"></i>
+                            <i class="fas fa-video" title="Video"></i>
+                        </div>
+                        <button type="submit" class="btn-nemo">PUBLICAR</button>
                     </div>
+                </form>
+            </div>
+
+            <div class="community-feed">
+                <h2 class="feed-title">ACTIVIDAD RECIENTE</h2>
+                
+                {% for post in posts %}
+                <article class="post-card">
+                    <div class="post-header">
+                        <span class="post-author">@{{ post.author }}</span>
+                        <span class="post-time">Hace un momento</span>
+                    </div>
+                    <div class="post-body">
+                        {{ post.content }}
+                    </div>
+                    <div class="post-actions">
+                        <a href="/like/{{ post.id }}" class="action-link like">
+                            <i class="fas fa-heart"></i> {{ post.likes }}
+                        </a>
+                        <span class="action-link"><i class="fas fa-comment"></i> {{ post.comments|length }}</span>
+                    </div>
+                    
                     <div class="comments-box">
-                        {% for c in post.comments %}
-                        <div class="comment-item"><span class="comment-user">{{ c.author }}:</span> {{ c.text }}</div>
+                        {% for comment in post.comments %}
+                        <div class="comment-item">
+                            <b>{{ comment.author }}:</b> {{ comment.text }}
+                        </div>
                         {% endfor %}
-                        <form action="/comment/{{ post.id }}" method="POST" class="comment-form">
-                            <input type="text" name="comment" placeholder="Comentar..." required>
+                        <form action="/comment/{{ post.id }}" method="POST" class="mini-comment-form">
+                            <input type="text" name="comment" placeholder="Responder..." required>
                             <button type="submit"><i class="fas fa-paper-plane"></i></button>
                         </form>
                     </div>
+                </article>
+                {% else %}
+                <div class="empty-feed">
+                    <i class="fas fa-ghost"></i>
+                    <p>No hay mensajes todavía. ¡Inicia la conversación!</p>
                 </div>
                 {% endfor %}
             </div>
         </div>
         {% endif %}
     </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Nemo page - Creado para la Comunidad Gamer</p>
+    </footer>
 </body>
 </html>
