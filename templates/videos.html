@@ -25,34 +25,42 @@
     <main class="container">
         <h2 class="section-title">Todos los Videos de Nemo 🎬</h2>
         <div id="video-feed" class="video-grid">
-            <p style="text-align: center; color: var(--accent);">Conectando con YouTube...</p>
+            <p style="color: var(--accent); grid-column: 1/-1; text-align: center;">Cargando contenido desde YouTube...</p>
         </div>
     </main>
 
     <script>
-        // Script para traer videos automáticamente
+        // Usamos un proxy para evitar problemas de CORS y traer el XML de YouTube convertido a JSON
         const channelID = "UCpP_S_m7_N7O0yX_D9B4w9Q"; 
-        const url = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${channelID}`;
+        const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelID}`;
+        const finalUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
 
-        fetch(url)
+        fetch(finalUrl)
             .then(res => res.json())
             .then(data => {
                 const container = document.getElementById('video-feed');
-                container.innerHTML = ''; // Limpiar mensaje de carga
-                
-                data.items.forEach(item => {
-                    const videoID = item.link.split('v=')[1];
-                    container.innerHTML += `
-                        <a href="${item.link}" target="_blank" class="video-card">
-                            <div class="v-img" style="background-image: url('https://img.youtube.com/vi/${videoID}/maxresdefault.jpg')"></div>
-                            <div class="v-info">
-                                <h3>${item.title}</h3>
-                            </div>
-                        </a>
-                    `;
-                });
+                if (data.status === 'ok') {
+                    container.innerHTML = ''; // Limpiamos el texto de "Cargando"
+                    data.items.forEach(item => {
+                        // Extraemos el ID del video de la URL
+                        const videoID = item.link.split('v=')[1];
+                        container.innerHTML += `
+                            <a href="${item.link}" target="_blank" class="video-card">
+                                <div class="v-img" style="background-image: url('https://img.youtube.com/vi/${videoID}/maxresdefault.jpg')"></div>
+                                <div class="v-info">
+                                    <h3>${item.title}</h3>
+                                </div>
+                            </a>
+                        `;
+                    });
+                } else {
+                    container.innerHTML = '<p>No se pudieron cargar los videos. Revisa el ID del canal.</p>';
+                }
             })
-            .catch(err => console.error("Error cargando videos:", err));
+            .catch(err => {
+                console.error("Error:", err);
+                document.getElementById('video-feed').innerHTML = '<p>Error de conexión.</p>';
+            });
     </script>
 </body>
 </html>
