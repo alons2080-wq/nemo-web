@@ -1,31 +1,58 @@
-<section class="container section">
-    <h1 class="main-title" style="font-size: 3rem;">Canal de YouTube</h1>
-    <div id="yt-feed" class="youtube-feed">
-        <p>Cargando los últimos videos de Nemo...</p>
-    </div>
-</section>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Videos | NEMO_704</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="main-header">
+        <div class="navbar">
+            <div class="logo-circle">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Nemo">
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="/">INICIO</a></li>
+                    <li><a href="/videos">VIDEOS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-<script>
-    // Script para traer videos sin API Key (usando RSS2JSON)
-    const channelID = "UCpP_S_m7_N7O0yX_D9B4w9Q"; // Sustituye por el ID real de Nemo
-    const url = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${channelID}`;
+    <main class="container">
+        <h2 class="section-title">Todos los Videos de Nemo 🎬</h2>
+        <div id="video-feed" class="video-grid">
+            <p style="text-align: center; color: var(--accent);">Conectando con YouTube...</p>
+        </div>
+    </main>
 
-    fetch(url)
-        .then(res => res.json())
-        .then(data => {
-            const container = document.getElementById('yt-feed');
-            container.innerHTML = '';
-            data.items.forEach(item => {
-                const videoID = item.link.split('v=')[1];
-                container.innerHTML += `
-                    <div class="yt-video-card">
-                        <img src="https://img.youtube.com/vi/${videoID}/maxresdefault.jpg" style="width:100%">
-                        <div style="padding:15px">
-                            <h3 style="font-size:1rem">${item.title}</h3>
-                            <a href="${item.link}" target="_blank" class="social-pill" style="background:#f00; margin-top:10px; display:inline-flex">Ver Video</a>
-                        </div>
-                    </div>
-                `;
-            });
-        });
-</script>
+    <script>
+        // Script para traer videos automáticamente
+        const channelID = "UCpP_S_m7_N7O0yX_D9B4w9Q"; 
+        const url = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${channelID}`;
+
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('video-feed');
+                container.innerHTML = ''; // Limpiar mensaje de carga
+                
+                data.items.forEach(item => {
+                    const videoID = item.link.split('v=')[1];
+                    container.innerHTML += `
+                        <a href="${item.link}" target="_blank" class="video-card">
+                            <div class="v-img" style="background-image: url('https://img.youtube.com/vi/${videoID}/maxresdefault.jpg')"></div>
+                            <div class="v-info">
+                                <h3>${item.title}</h3>
+                            </div>
+                        </a>
+                    `;
+                });
+            })
+            .catch(err => console.error("Error cargando videos:", err));
+    </script>
+</body>
+</html>
