@@ -108,113 +108,191 @@ body {
 .footer { padding: 30px; text-align: center; border-top: 1px solid #111; margin-top: 50px; }
 .footer p { font-size: 13px; color: #666; letter-spacing: 1px; }
 
-/* --- ESTILO PROFESIONAL PARA EL FORO --- */
+/* =========================================
+   FORO PRO - ESTILO NEMO_704
+   ========================================= */
 
-.container { 
-    max-width: 900px; 
-    margin: 0 auto; 
-    padding: 40px 20px; 
+/* Contenedor Principal */
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
-/* Contenedor principal del foro para que no flote en la nada */
-.forum-wrapper { 
-    background: rgba(15, 15, 20, 0.95); 
-    padding: 35px; 
-    border-radius: 20px; 
-    border: 1px solid rgba(0, 243, 255, 0.2); 
-    box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+/* --- AUTENTICACIÓN (LOGIN/REGISTRO) --- */
+.auth-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
 }
 
-/* Barra de usuario (Bienvenida y Cerrar Sesión) */
-.forum-user-bar { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    margin-bottom: 25px; 
-    border-bottom: 1px solid #222; 
-    padding-bottom: 15px; 
-}
-
-.forum-user-bar b { color: var(--cyan); }
-
-.logout-btn { 
-    color: #ff0055 !important; 
-    text-decoration: none; 
-    font-size: 13px; 
-    font-weight: bold; 
-    text-transform: uppercase;
-}
-
-/* Caja de creación de post */
-.post-creator-card textarea {
-    width: 100%;
-    height: 100px;
-    background: #000;
-    border: 1px solid #333;
-    color: #fff;
-    padding: 15px;
-    border-radius: 12px;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 16px;
-    resize: none;
-    margin-bottom: 10px;
-    outline: none;
+.auth-card {
+    background: rgba(15, 15, 20, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     transition: 0.3s;
 }
 
-.post-creator-card textarea:focus {
+.auth-card:hover {
     border-color: var(--cyan);
-    box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
 }
 
-/* BOTÓN PUBLICAR ARREGLADO (No gigante) */
+.auth-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--cyan);
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.auth-card input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    transition: 0.3s;
+}
+
+.auth-card input:focus {
+    border-color: var(--cyan);
+    outline: none;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* --- INTERFAZ DEL FORO (LOGUEADO) --- */
+.forum-wrapper {
+    background: rgba(10, 10, 12, 0.9);
+    border-radius: 25px;
+    padding: 40px;
+    border: 1px solid #1a1a1a;
+}
+
+.forum-user-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.forum-user-bar p { font-size: 1.1rem; }
+.forum-user-bar b { color: var(--cyan); text-shadow: 0 0 5px var(--cyan); }
+
+.logout-link {
+    background: rgba(255, 0, 85, 0.1);
+    color: #ff0055;
+    padding: 8px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.8rem;
+    transition: 0.3s;
+    border: 1px solid transparent;
+}
+
+.logout-link:hover {
+    background: #ff0055;
+    color: white;
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.4);
+}
+
+/* Caja de Publicación */
+.post-form textarea {
+    width: 100%;
+    height: 120px;
+    background: #000;
+    border: 1px solid #222;
+    border-radius: 15px;
+    padding: 20px;
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    resize: none;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.post-form textarea:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+}
+
+/* BOTÓN NEMO PRO */
 .btn-nemo {
-    display: block;
-    width: 100%; /* Ocupa el ancho del textarea solamente */
-    padding: 12px;
-    background: var(--cyan);
-    color: #000 !important;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(90deg, #00f3ff, #0099ff);
+    color: #000;
+    border: none;
+    border-radius: 12px;
     font-family: 'Orbitron', sans-serif;
     font-weight: 900;
-    border: none;
-    border-radius: 8px;
     cursor: pointer;
     text-transform: uppercase;
-    transition: 0.3s ease;
+    letter-spacing: 2px;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .btn-nemo:hover {
+    transform: scale(1.02);
     filter: brightness(1.2);
-    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
-    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.5);
 }
 
-/* Feed de Actividad Reciente */
+/* Feed de Mensajes */
 .feed-title {
-    font-family: 'Orbitron';
-    font-size: 22px;
-    margin: 40px 0 20px;
-    color: #fff;
-    text-transform: uppercase;
+    margin-top: 50px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    color: white;
+    border-left: 4px solid var(--cyan);
+    padding-left: 15px;
+    margin-bottom: 25px;
 }
 
 .post-card {
-    background: rgba(255,255,255,0.03);
-    border-radius: 12px;
-    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
     margin-bottom: 20px;
-    border-left: 4px solid var(--cyan);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: 0.3s;
 }
 
-.post-author {
+.post-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(10px);
+}
+
+.post-card .author {
+    display: block;
     color: var(--cyan);
     font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
     margin-bottom: 10px;
-    display: block;
 }
 
-.empty-feed {
+.post-card .content {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    color: #ddd;
+}
+
+.empty {
     text-align: center;
-    padding: 40px;
     color: #555;
+    padding: 40px;
+    font-style: italic;
 }
