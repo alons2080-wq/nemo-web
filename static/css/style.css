@@ -121,3 +121,21 @@ body { background: var(--bg); color: white; font-family: 'Montserrat', sans-seri
 }
 
 .logout-link { color: #ff4444; text-decoration: none; font-size: 14px; }
+
+.post-card {
+    background: var(--card);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.post-meta { color: var(--accent); margin-bottom: 10px; font-size: 14px; }
+.post-body { font-size: 16px; line-height: 1.5; margin-bottom: 15px; }
+.post-footer { border-top: 1px solid #222; padding-top: 10px; }
+.like-btn { color: #ff4757; text-decoration: none; font-weight: bold; }
+
+.comments-section { background: rgba(0,0,0,0.2); border-radius: 10px; padding: 10px; margin-top: 15px; }
+.comment { font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #222; padding: 3px 0; }
+.comment-form { display: flex; margin-top: 10px; gap: 5px; }
+.comment-form input { flex: 1; background: #000; border: 1px solid #333; color: white; padding: 5px 10px; border-radius: 5px; }
+.comment-form button { background: var(--accent); border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
