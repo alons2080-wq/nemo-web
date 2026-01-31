@@ -3,10 +3,12 @@ from supabase import create_client, Client
 import os
 
 app = Flask(__name__)
+# Clave para asegurar las sesiones (Login)
 app.secret_key = 'nemo_704_ultra_secret_key'
 
 SUPABASE_URL = "https://qsowpgaiqkduzgypwpww.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFzb3dwZ2FpcWtkdXpneXB3cHd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk4MTUzMjYsImV4cCI6MjA4NTM5MTMyNn0.o9hOYTdXw-yvai7XMf5-ZiIaGq5r9aogTKTgqzm8C0c"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFzb3dwZ2FpcWtkdXpneXB3cHd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk4MTUzMjYsImV4cCI6MjA4NTM5MTMyNn0.o9hOYTdXw-yvai7XMf5-ZiIaGq5r9aogTKTgqzm8C0c" 
+
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 @app.route('/')
@@ -15,26 +17,30 @@ def index():
 
 @app.route('/foro')
 def foro():
-    # 1. Traer todos los posts ordenados por el más reciente
-    response = supabase.table('posts').select("*").order('timestamp', desc=True).execute()
-    posts = response.data
-    
-    # 2. Enriquecer cada post con sus likes y comentarios
-    for post in posts:
-        # Contar Likes
-        likes_res = supabase.table('likes').select("*", count='exact').eq('post_id', post['id']).execute()
-        post['likes_count'] = likes_res.count if likes_res.count else 0
+    try:
+        # Obtenemos todos los posts ordenados por fecha (más recientes primero)
+        response = supabase.table('posts').select("*").order('timestamp', desc=True).execute()
+        posts = response.data
         
-        # Verificar si el usuario logueado ya dio like
-        post['user_liked'] = False
-        if 'user' in session:
-            check_like = supabase.table('likes').select("*").eq('post_id', post['id']).eq('username', session['user']).execute()
-            if check_like.data:
-                post['user_liked'] = True
-        
-        # Traer Comentarios del post
-        comm_res = supabase.table('comments').select("*").eq('post_id', post['id']).order('timestamp').execute()
-        post['comments'] = comm_res.data
+        # Enriquecemos cada post con likes y comentarios
+        for post in posts:
+            # Conteo de Likes
+            likes_res = supabase.table('likes').select("*", count='exact').eq('post_id', post['id']).execute()
+            post['likes_count'] = likes_res.count if likes_res.count else 0
+            
+            # Verificar si el usuario actual ya dio like
+            post['user_liked'] = False
+            if 'user' in session:
+                check = supabase.table('likes').select("*").eq('post_id', post['id']).eq('username', session['user']).execute()
+                if check.data:
+                    post['user_liked'] = True
+            
+            # Obtener Comentarios
+            comm_res = supabase.table('comments').select("*").eq('post_id', post['id']).order('timestamp').execute()
+            post['comments'] = comm_res.data
+    except Exception as e:
+        print(f"Error cargando el foro: {e}")
+        posts = []
         
     return render_template('foro.html', posts=posts)
 
@@ -43,14 +49,14 @@ def login():
     username = request.form.get('username')
     password = request.form.get('password')
     
-    # Buscamos al usuario en Supabase
+    # Buscamos al usuario en la tabla 'users'
     user_query = supabase.table('users').select("*").eq('username', username).eq('password', password).execute()
     
     if user_query.data:
         session['user'] = username
         return redirect(url_for('foro'))
     else:
-        return render_template('foro.html', error="Usuario o contraseña incorrectos")
+        return render_template('foro.html', error="Usuario o contraseña incorrectos", posts=[])
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -58,12 +64,12 @@ def register():
     password = request.form.get('password')
     
     try:
-        # Insertar nuevo usuario
+        # Insertamos nuevo usuario en Supabase
         supabase.table('users').insert({"username": username, "password": password}).execute()
         session['user'] = username
         return redirect(url_for('foro'))
     except Exception:
-        return render_template('foro.html', error="El nombre de usuario ya existe")
+        return render_template('foro.html', error="El nombre de usuario ya existe o hubo un error", posts=[])
 
 @app.route('/post', methods=['POST'])
 def post():
@@ -72,7 +78,7 @@ def post():
         img = request.form.get('image_url')
         vid = request.form.get('video_url')
         
-        # Limpiar link de YouTube para que sea un embed
+        # Ajuste para que los videos de YouTube se vean correctamente
         if vid and "watch?v=" in vid:
             vid = vid.replace("watch?v=", "embed/")
             
@@ -87,7 +93,7 @@ def post():
 @app.route('/like/<int:post_id>')
 def like(post_id):
     if 'user' in session:
-        # Toggle Like: Si existe lo borra, si no existe lo crea
+        # Lógica de toggle: si ya existe el like, lo borra; si no, lo crea
         check = supabase.table('likes').select("*").eq('post_id', post_id).eq('username', session['user']).execute()
         if check.data:
             supabase.table('likes').delete().eq('post_id', post_id).eq('username', session['user']).execute()
@@ -113,4 +119,5 @@ def logout():
     return redirect(url_for('foro'))
 
 if __name__ == '__main__':
+    # Ejecución local para pruebas
     app.run(debug=True)
