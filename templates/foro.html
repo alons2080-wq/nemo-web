@@ -2,16 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FORO | NEMO_704</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-
     <nav class="navbar">
         <div class="nav-container">
-            <a href="/" class="nav-logo">NEMO<span>_704</span></a>
+            <a href="/" class="nav-logo">NEMO<span>_104</span></a>
             <div class="nav-links">
                 <a href="/">INICIO</a>
                 <a href="/videos">VIDEOS</a>
@@ -21,75 +18,39 @@
     </nav>
 
     <div class="main-container">
-
-        {% if not session.get('user') %}
-            <div class="login-container">
-                <h2 style="color: white; margin-bottom: 20px;">INICIAR SESIÓN</h2>
+        {% if session.get('user') %}
+            <div class="post-form-card">
+                <p>Bienvenido, <strong>{{ session['user'] }}</strong> | <a href="/logout">Cerrar Sesión</a></p>
+                <form action="/post" method="POST">
+                    <textarea name="content" placeholder="Escribe un nuevo post..." required></textarea>
+                    <div class="input-group">
+                        <input type="text" name="image_url" placeholder="URL de Imagen">
+                        <input type="text" name="video_url" placeholder="URL de YouTube">
+                    </div>
+                    <button type="submit" class="btn-pub">PUBLICAR</button>
+                </form>
+            </div>
+        {% else %}
+            <div class="login-box">
+                <h2>ÚNETE A LA COMUNIDAD</h2>
                 <form action="/login" method="POST">
                     <input type="text" name="username" placeholder="Usuario" required>
                     <input type="password" name="password" placeholder="Contraseña" required>
-                    <button type="submit" class="btn-nemo" style="width:100%">ENTRAR</button>
-                </form>
-
-                <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
-
-                <h3 style="color: #aaa; font-size: 1rem;">¿No tienes cuenta?</h3>
-                <form action="/register" method="POST">
-                    <input type="text" name="username" placeholder="Elige Usuario" required>
-                    <input type="password" name="password" placeholder="Elige Contraseña" required>
-                    <button type="submit" class="btn-nemo" style="background: transparent; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); width: 100%;">REGISTRARSE</button>
-                </form>
-            </div>
-        
-        {% else %}
-            <div class="login-container" style="max-width: 600px; text-align: left;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                    <span style="color: var(--neon-cyan);">Usuario: {{ session['user'] }}</span>
-                    <a href="/logout" style="color: #ff5555; text-decoration: none; font-size: 0.9rem;">Cerrar Sesión</a>
-                </div>
-
-                <form action="/post" method="POST" enctype="multipart/form-data">
-                    <textarea name="content" placeholder="Escribe algo..." rows="3" required></textarea>
-                    
-                    <div style="display:flex; gap:10px; margin-top:10px;">
-                        <div style="flex:1">
-                            <label style="font-size:12px; color:#aaa;"><i class="fas fa-image"></i> Imagen</label>
-                            <input type="file" name="image_file" accept="image/*">
-                        </div>
-                        <div style="flex:1">
-                            <label style="font-size:12px; color:#aaa;"><i class="fas fa-video"></i> Video</label>
-                            <input type="file" name="video_file" accept="video/*">
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn-nemo">PUBLICAR</button>
+                    <button type="submit" class="btn-pub">ENTRAR</button>
                 </form>
             </div>
         {% endif %}
 
-        <h2 class="section-title">ACTIVIDAD RECIENTE</h2>
-        <div class="video-grid" style="display: block;">
+        <h2 class="section-title">MURMULLOS DE LA COMUNIDAD</h2>
+        <div class="feed">
             {% for post in posts %}
-            <div class="video-card" style="margin-bottom: 20px; padding: 20px;">
-                <h4 style="color: var(--neon-cyan); margin-bottom: 10px;">@{{ post.author }}</h4>
-                <p style="margin-bottom: 15px; font-size: 1.1rem;">{{ post.content }}</p>
-
-                {% if post.image_url %}
-                    <img src="{{ post.image_url }}" style="max-width: 100%; border-radius: 8px;">
-                {% endif %}
-                
-                {% if post.video_url %}
-                <div class="video-wrapper" style="margin-top: 10px;">
-                    <video controls>
-                        <source src="{{ post.video_url }}" type="video/mp4">
-                    </video>
+                <div class="post-card">
+                    <h4>@{{ post.author }}</h4>
+                    <p>{{ post.content }}</p>
+                    {% if post.image_url %}<img src="{{ post.image_url }}" class="post-img">{% endif %}
                 </div>
-                {% endif %}
-            </div>
             {% endfor %}
         </div>
-
     </div>
-
 </body>
 </html>
