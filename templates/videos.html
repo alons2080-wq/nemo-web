@@ -3,42 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>VIDEOS | NEMO_704</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}"> 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-container">
-            <a href="/" class="nav-logo">NEMO<span>_104</span></a>
-            <div class="nav-links">
-                <a href="/">INICIO</a>
-                <a href="/videos" class="active">VIDEOS</a>
-                <a href="/foro">FORO</a>
-            </div>
+        <a href="/" class="nav-logo">NEMO<span>_704</span></a>
+        <div class="nav-links">
+            <a href="/">INICIO</a>
+            <a href="/videos" class="active">VIDEOS</a>
+            <a href="/foro">FORO</a>
         </div>
     </nav>
 
     <div class="main-container">
-        <h2 class="section-title">VIDEOS POPULARES</h2>
-        <div class="video-grid">
-            <a href="https://youtu.be/C1eMcl8txW4" target="_blank" class="video-card">
-                <div class="video-wrapper">
-                    <img src="https://img.youtube.com/vi/C1eMcl8txW4/maxresdefault.jpg">
+        <h1 style="font-family: 'Orbitron'; text-align: center;">VIDEOS POPULARES</h1>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="feed-card">
+                <div class="media-box">
+                    <iframe src="https://www.youtube.com/embed/C1eMcl8txW4"></iframe>
                 </div>
-                <div class="video-info"><h3>Me pasé la noche más difícil de cada FNAF</h3></div>
-            </a>
-            <a href="https://youtu.be/LhzGgUS2mIQ" target="_blank" class="video-card">
-                <div class="video-wrapper">
-                    <img src="https://img.youtube.com/vi/LhzGgUS2mIQ/maxresdefault.jpg">
+                <h3>La noche más difícil de cada FNAF</h3>
+            </div>
+
+            <div class="feed-card">
+                <div class="media-box">
+                    <iframe src="https://www.youtube.com/embed/LhzGgUS2mIQ"></iframe>
                 </div>
-                <div class="video-info"><h3>Así me pasé FNAF 2 SIN MÁSCARA</h3></div>
-            </a>
-            <a href="https://youtu.be/C3Yl7DV4ehQ" target="_blank" class="video-card">
-                <div class="video-wrapper">
-                    <img src="https://img.youtube.com/vi/C3Yl7DV4ehQ/maxresdefault.jpg">
-                </div>
-                <div class="video-info"><h3>Así me pasé FNAF 1 SIN PUERTAS</h3></div>
-            </a>
+                <h3>FNAF 2 SIN MÁSCARA</h3>
+            </div>
         </div>
     </div>
 </body>
