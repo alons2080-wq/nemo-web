@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEMO_704 | MOBILE HUB</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root { --cyan: #00f3ff; --purple: #bc13fe; --dark: #0a0a0a; }
+        body { 
+            background-color: var(--dark); color: white; 
+            font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .header-mobile {
+            width: 100%; padding: 40px 0; background: linear-gradient(to bottom, #111, var(--dark));
+            text-align: center; border-bottom: 2px solid var(--cyan);
+        }
+        .logo-mobile { width: 100px; filter: drop-shadow(0 0 10px var(--cyan)); }
+        h1 { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; margin: 15px 0 5px; }
+        
+        .links-container { width: 90%; max-width: 400px; margin-top: 30px; }
+        .m-link {
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--purple);
+            color: white; text-decoration: none; padding: 18px;
+            margin-bottom: 15px; border-radius: 15px; font-weight: bold;
+            font-size: 1.2rem; transition: 0.3s;
+        }
+        .m-link i { margin-right: 15px; font-size: 1.5rem; color: var(--cyan); }
+        .m-link:active { background: var(--purple); transform: scale(0.95); }
+    </style>
+</head>
+<body>
+    <div class="header-mobile">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo-mobile">
+        <h1>NEMO_704</h1>
+        <p style="color: var(--cyan); font-size: 0.9rem; letter-spacing: 3px;">MOBILE ACCESS</p>
+    </div>
+
+    <div class="links-container">
+        <a href="https://youtube.com/@NEMO_704" class="m-link"><i class="fas fa-youtube"></i>Canal Principal</a>
+        <a href="https://youtube.com/@NemoPlusss" class="m-link"><i class="fab fa-play"></i> Canal secundario</a>
+        <a href="https://discord.gg/mmsr2wPgh5" class="m-link"><i class="fab fa-discord"></i> Servidor Nemo´s</a>
+        <a href="https://www.tiktok.com/@n.e.m.o_704" class="m-link"><i class="fab fa-tiktok"></i> TIKTOK</a>
+        <a href="https://www.instagram.com/n.e.m.o.704/?next=/" class="m-link"><i class="fab fa-instagram"></i> INSTAGRAM</a>
+    </div>
+
+    <footer style="margin-top: 40px; opacity: 0.4; font-size: 0.7rem;">
+        © 2026 NEMO_704 - UNA PÁGINA HECHA POR LA COMUNIDAD
+    </footer>
+</body>
+</html>
