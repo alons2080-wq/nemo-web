@@ -2,42 +2,34 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>NEMO_704 | OFFICIAL SITE</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <title>NEMO_704 | Official Page</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
     <nav class="navbar">
         <a href="/" class="nav-logo">NEMO<span>_704</span></a>
         <div class="nav-links">
-            <a href="/"><i class="fas fa-home"></i> INICIO</a>
-            <a href="/videos"><i class="fas fa-play"></i> VIDEOS</a>
+            <a href="/">INICIO</a>
+            <a href="/videos">VIDEOS</a>
         </div>
     </nav>
 
     <section class="hero">
-        <h1 class="animate-glow">NEMO_704</h1>
-        <p>RECORDS & IMPOSSIBLE CHALLENGES</p>
-        <div class="social-icons">
-            </div>
+        <h1 class="glitch-title">NEMO_704</h1>
+        <p style="letter-spacing: 10px; color: var(--neon-cyan);">THE ULTIMATE CHALLENGE</p>
     </section>
 
-    <div class="container" style="text-align: center;">
-        <h2 style="font-family: 'Orbitron'; margin-bottom: 40px;">BIENVENIDO AL ABISMO</h2>
-        <img src="{{ url_for('static', filename='banner.png') }}" style="width: 100%; border-radius: 20px; border: 2px solid var(--neon-purple);">
+    <div class="banner-container">
+        <img src="{{ url_for('static', filename='banner_central.png') }}" class="banner-glow">
     </div>
 
-    <div class="omnipresente">
-        <div class="bubble">Hola soy MrRat0 y esto es un recordatorio de que soy omnipresente</div>
-        <img src="{{ url_for('static', filename='easter.png') }}" style="width: 150px; animation: float 4s infinite ease-in-out;">
+    <div class="easter-egg-section">
+        <div class="rat-bubble">Hola soy MrRat0 y esto es un recordatorio de que soy omnipresente xd</div>
+        <img src="{{ url_for('static', filename='easter.png') }}" class="rat-img">
     </div>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
-
-
-
-
