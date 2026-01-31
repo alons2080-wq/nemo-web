@@ -1,178 +1,153 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
-
 :root {
+    --bg: #050505;
+    --card: #0f0f0f;
     --cyan: #00f3ff;
-    --dark: #050505;
-    --card-bg: #121212;
+    --text: #ffffff;
 }
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background-color: var(--dark);
-    color: white;
-    font-family: 'Rajdhani', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
 }
 
-/* NAVBAR Y LOGO */
-.main-header {
-    background: rgba(0,0,0,0.95);
-    height: 80px;
-    border-bottom: 2px solid var(--cyan);
-    display: flex;
-    align-items: center;
+/* Navbar Moderna */
+.navbar {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--cyan);
     position: sticky;
     top: 0;
     z-index: 1000;
+    padding: 15px 0;
 }
 
-.navbar { width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-
-.logo-circle {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 2px solid var(--cyan);
-    overflow: hidden;
-    box-shadow: 0 0 15px var(--cyan);
-}
-
-.logo-circle img { width: 100%; height: 100%; object-fit: cover; }
-
-.nav-menu { display: flex; list-style: none; gap: 30px; }
-.nav-menu a { color: white; text-decoration: none; font-family: 'Orbitron'; font-size: 14px; transition: 0.3s; font-weight: bold; }
-.nav-menu a:hover, .nav-menu a.active { color: var(--cyan); text-shadow: 0 0 8px var(--cyan); }
-
-/* HERO (INDEX) */
-.hero-banner {
-    max-width: 1100px;
-    height: 400px;
-    margin: 30px auto;
-    border-radius: 20px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
+.nav-container {
+    max-width: 1000px;
+    margin: 0 auto;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    border: 1px solid #333;
+    padding: 0 20px;
 }
 
-.hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); border-radius: 20px; }
-.hero-content { position: relative; z-index: 5; text-align: center; }
-
-/* SOCIAL ICONS */
-.social-box { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
-.social-icon { font-size: 26px; color: white; transition: 0.3s; }
-.social-icon:hover { transform: scale(1.2); color: var(--cyan); }
-
-/* VIDEOS GRID (SOLUCIÓN DE TÍTULOS E IMÁGENES) */
-.container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-.section-title { font-family: 'Orbitron'; color: var(--cyan); margin-bottom: 30px; text-transform: uppercase; }
-
-.video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-}
-
-.video-card {
-    background: var(--card-bg);
-    border-radius: 15px;
-    overflow: hidden;
-    text-decoration: none;
-    border: 1px solid #222;
-    transition: 0.3s ease;
-}
-
-.video-card:hover { border-color: var(--cyan); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-
-.v-img { 
-    width: 100%; 
-    aspect-ratio: 16/9; 
-    background-size: cover; 
-    background-position: center;
-    border-bottom: 1px solid #222;
-}
-
-.v-info h3 {
-    padding: 15px;
-    color: #ffffff !important; /* FORZAR COLOR BLANCO */
-    font-size: 16px;
-    font-weight: 700;
-    text-align: center;
-    line-height: 1.4;
-}
-
-/* FOOTER */
-.footer { padding: 30px; text-align: center; border-top: 1px solid #111; margin-top: 50px; }
-.footer p { font-size: 13px; color: #666; letter-spacing: 1px; }
-
-/* --- FORO NEMO V3 (SUPABASE EDITION) --- */
-.container { max-width: 800px; margin: 0 auto; padding: 20px; }
-
-.forum-wrapper {
-    background: #0d0d0d;
-    border: 1px solid #1a1a1a;
-    border-radius: 15px;
-    padding: 25px;
-}
-
-/* Caja de publicación elegante */
-.post-form {
-    background: #151515;
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 30px;
-    border: 1px solid #222;
-}
-
-.post-form textarea {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid #333;
+.nav-logo {
     color: white;
-    font-size: 16px;
-    padding: 10px 0;
-    margin-bottom: 15px;
-    resize: none;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: 800;
 }
 
-.multimedia-inputs { display: flex; gap: 10px; }
-.multimedia-inputs input {
-    background: #000;
-    border: 1px solid #222;
-    color: var(--cyan);
-    padding: 8px;
-    border-radius: 5px;
-    font-size: 12px;
-    flex: 1;
-}
+.nav-logo span { color: var(--cyan); }
 
-/* El botón ya no es una barra gigante */
-.btn-nemo {
-    display: inline-block;
-    width: auto;
-    padding: 10px 25px;
-    background: var(--cyan);
-    color: black;
-    font-family: 'Orbitron';
-    border-radius: 8px;
-    font-weight: bold;
-    margin-top: 15px;
+.nav-links a {
+    color: #888;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 600;
     transition: 0.3s;
 }
 
-.btn-nemo:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 243, 255, 0.4); }
+.nav-links a.active, .nav-links a:hover {
+    color: var(--cyan);
+    text-shadow: 0 0 10px var(--cyan);
+}
 
-/* Tarjetas de Post */
+/* Containers */
+.main-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Post Box */
+.post-box {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #222;
+    margin-bottom: 30px;
+}
+
+textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    resize: none;
+    outline: none;
+}
+
+.upload-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    border-top: 1px solid #222;
+    padding-top: 15px;
+}
+
+.upload-btn {
+    background: #1a1a1a;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--cyan);
+}
+
+.btn-post {
+    background: var(--cyan);
+    border: none;
+    padding: 8px 25px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+/* Cards */
 .post-card {
-    background: #111;
-    border: 1px solid #1a1a1a;
+    background: var(--card);
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
+    border: 1px solid #1a1a1a;
 }
 
-.author { color: var(--cyan); font-family: 'Orbitron'; font-size: 13px; }
+.post-media {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+/* Login */
+.login-card {
+    text-align: center;
+    background: var(--card);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid var(--cyan);
+}
+
+.login-card input {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    background: #000;
+    border: 1px solid #333;
+    padding: 12px;
+    color: white;
+    border-radius: 8px;
+}
+
+.btn-glow {
+    background: var(--cyan);
+    padding: 12px 40px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+}
