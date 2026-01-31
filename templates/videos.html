@@ -3,37 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>VIDEOS | NEMO_704</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}"> 
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+
     <nav class="navbar">
         <a href="/" class="nav-logo">NEMO<span>_704</span></a>
         <div class="nav-links">
             <a href="/">INICIO</a>
-            <a href="/videos" class="active">VIDEOS</a>
-            <a href="/foro">FORO</a>
+            <a href="/videos" style="color: var(--neon-cyan);">VIDEOS</a>
         </div>
     </nav>
 
-    <div class="main-container">
-        <h1 style="font-family: 'Orbitron'; text-align: center;">VIDEOS POPULARES</h1>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div class="feed-card">
-                <div class="media-box">
-                    <iframe src="https://www.youtube.com/embed/C1eMcl8txW4"></iframe>
-                </div>
-                <h3>La noche más difícil de cada FNAF</h3>
-            </div>
+    <h1 style="text-align:center; font-family:'Orbitron'; margin-top:50px; font-size:3rem;">VIDEOS POPULARES</h1>
+    <div style="width:100px; height:4px; background:var(--neon-cyan); margin:10px auto 50px;"></div>
 
-            <div class="feed-card">
-                <div class="media-box">
-                    <iframe src="https://www.youtube.com/embed/LhzGgUS2mIQ"></iframe>
-                </div>
+    <div class="video-grid">
+        <div class="video-card">
+            <iframe class="video-thumb" src="https://www.youtube.com/embed/C1eMcl8txW4" allowfullscreen></iframe>
+            <div style="padding:20px; text-align:center;">
+                <h3>LA NOCHE MÁS DIFÍCIL DE CADA FNAF</h3>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <iframe class="video-thumb" src="https://www.youtube.com/embed/LhzGgUS2mIQ" allowfullscreen></iframe>
+            <div style="padding:20px; text-align:center;">
                 <h3>FNAF 2 SIN MÁSCARA</h3>
             </div>
         </div>
+
+        <div class="video-card">
+            <iframe class="video-thumb" src="https://www.youtube.com/embed/C3Yl7DV4ehQ" allowfullscreen></iframe>
+            <div style="padding:20px; text-align:center;">
+                <h3>FNAF 1 SIN PUERTAS</h3>
+            </div>
+        </div>
     </div>
+
 </body>
 </html>
