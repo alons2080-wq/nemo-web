@@ -2,48 +2,96 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIDEOS | NEMO_704</title>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <header class="main-header">
-        <div class="navbar">
-            <div class="logo-circle"><img src="{{ url_for('static', filename='images/logo.png') }}"></div>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="/">INICIO</a></li>
-                    <li><a href="/videos" class="active">VIDEOS</a></li>
-                    <li><a href="/foro">FORO</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <main class="container">
-        <h2 class="section-title"><i class="fas fa-play"></i>Videos mas populares del canal</h2>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">NEMO<span>_704</span></a>
+            <div class="nav-links">
+                <a href="/">INICIO</a>
+                <a href="/videos" class="active">VIDEOS</a>
+                <a href="/foro">FORO</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
         
+        <h2 class="section-title">VIDEOS POPULARES</h2>
         <div class="video-grid">
+            
             <a href="https://youtu.be/C1eMcl8txW4" target="_blank" class="video-card">
-                <div class="v-img" style="background-image: url('https://img.youtube.com/vi/C1eMcl8txW4/maxresdefault.jpg');"></div>
-                <div class="v-info"><h3>Me pasé la noche más difícil de cada FNAF</h3></div>
+                <div class="video-wrapper">
+                    <img src="https://img.youtube.com/vi/C1eMcl8txW4/maxresdefault.jpg" alt="FNAF Noche Difícil">
+                    <div class="play-icon"><i class="fas fa-play-circle"></i></div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Me pasé la noche más difícil de cada FNAF</h3>
+                    <div class="video-meta"><span><i class="fab fa-youtube"></i> Ver en YouTube</span></div>
+                </div>
             </a>
 
             <a href="https://youtu.be/LhzGgUS2mIQ" target="_blank" class="video-card">
-                <div class="v-img" style="background-image: url('https://img.youtube.com/vi/LhzGgUS2mIQ/maxresdefault.jpg');"></div>
-                <div class="v-info"><h3>Así me pasé FNAF 2 SIN MÁSCARA</h3></div>
+                <div class="video-wrapper">
+                    <img src="https://img.youtube.com/vi/LhzGgUS2mIQ/maxresdefault.jpg" alt="FNAF 2 Sin Máscara">
+                    <div class="play-icon"><i class="fas fa-play-circle"></i></div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Así me pasé FNAF 2 SIN MÁSCARA</h3>
+                    <div class="video-meta"><span><i class="fab fa-youtube"></i> Ver en YouTube</span></div>
+                </div>
             </a>
 
             <a href="https://youtu.be/C3Yl7DV4ehQ" target="_blank" class="video-card">
-                <div class="v-img" style="background-image: url('https://img.youtube.com/vi/C3Yl7DV4ehQ/maxresdefault.jpg');"></div>
-                <div class="v-info"><h3>Así me pasé FNAF 1 SIN PUERTAS</h3></div>
+                <div class="video-wrapper">
+                    <img src="https://img.youtube.com/vi/C3Yl7DV4ehQ/maxresdefault.jpg" alt="FNAF 1 Sin Puertas">
+                    <div class="play-icon"><i class="fas fa-play-circle"></i></div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Así me pasé FNAF 1 SIN PUERTAS</h3>
+                    <div class="video-meta"><span><i class="fab fa-youtube"></i> Ver en YouTube</span></div>
+                </div>
             </a>
         </div>
-    </main>
 
-    <footer class="footer">
-        <p>&copy; 2026 Nemo_704 - Una pagina creada por la comunidad</p>
+        <h2 class="section-title" style="margin-top: 60px;">GALERÍA DE LA COMUNIDAD</h2>
+        <div class="video-grid">
+            {% for post in posts %}
+            <div class="video-card">
+                <div class="video-wrapper">
+                    {% if post.video_url %}
+                        {% if "youtube" in post.video_url or "youtu.be" in post.video_url %}
+                            <iframe src="{{ post.video_url.replace('watch?v=', 'embed/') }}" allowfullscreen></iframe>
+                        {% else %}
+                            <video controls>
+                                <source src="{{ post.video_url }}" type="video/mp4">
+                            </video>
+                        {% endif %}
+                    {% else %}
+                        <img src="{{ post.image_url or 'https://via.placeholder.com/400x225?text=VIDEO' }}">
+                    {% endif %}
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">{{ post.content }}</h3>
+                    <div class="video-meta">
+                        <span><i class="fas fa-user-astronaut"></i> @{{ post.author }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 <span style="color:var(--neon-cyan)">NEMO_704</span>. Una pagina hecha por la comunidad de Nemo_704.</p>
     </footer>
+
 </body>
 </html>
