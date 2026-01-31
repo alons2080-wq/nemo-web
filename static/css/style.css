@@ -1,98 +1,156 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
 
 :root {
     --neon-cyan: #00f3ff;
     --neon-purple: #bc13fe;
-    --dark-bg: #050505;
-    --card-bg: #111111;
+    --neon-pink: #ff0055;
+    --bg-dark: #020202;
+    --glass: rgba(255, 255, 255, 0.05);
 }
+
+* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
 body {
-    background-color: var(--dark-bg);
+    background-color: var(--bg-dark);
     color: white;
     font-family: 'Rajdhani', sans-serif;
-    margin: 0;
+    overflow-x: hidden;
 }
 
-/* --- NAVBAR --- */
+/* --- ANIMACIONES ÉPICAS --- */
+@keyframes glow {
+    0% { text-shadow: 0 0 10px var(--neon-cyan); }
+    50% { text-shadow: 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-purple); }
+    100% { text-shadow: 0 0 10px var(--neon-cyan); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* --- NAVBAR PRO --- */
 .navbar {
     display: flex;
     justify-content: space-between;
-    padding: 20px 5%;
-    background: rgba(0,0,0,0.8);
+    align-items: center;
+    padding: 20px 8%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
     border-bottom: 2px solid var(--neon-cyan);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    position: sticky; top: 0; z-index: 1000;
 }
 
-.nav-logo { font-family: 'Orbitron'; font-size: 1.5rem; text-decoration: none; color: white; }
-.nav-logo span { color: var(--neon-cyan); }
-.nav-links a { color: white; text-decoration: none; margin-left: 20px; font-weight: bold; transition: 0.3s; }
-.nav-links a:hover, .nav-links a.active { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
-
-/* --- BOTONES NEÓN (GLOW) --- */
-.btn-glow {
-    background: var(--neon-cyan);
-    color: black;
-    border: none;
-    padding: 10px 25px;
+.nav-logo {
     font-family: 'Orbitron';
-    font-weight: bold;
-    cursor: pointer;
-    text-transform: uppercase;
-    box-shadow: 0 0 15px var(--neon-cyan);
-    transition: 0.4s;
-    border-radius: 2px;
-}
-
-.btn-glow:hover {
-    box-shadow: 0 0 30px var(--neon-cyan), 0 0 50px var(--neon-cyan);
-    transform: scale(1.05);
-}
-
-/* --- FORO Y CARDS --- */
-.main-container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-
-.post-form-card {
-    background: var(--card-bg);
-    padding: 25px;
-    border-radius: 10px;
-    border: 1px solid #222;
-    margin-bottom: 40px;
-}
-
-.post-form-card textarea, .post-form-card input {
-    width: 100%;
-    background: #000;
-    border: 1px solid #333;
+    font-size: 2rem;
     color: white;
-    padding: 12px;
+    text-decoration: none;
+    animation: glow 3s infinite;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+}
+
+.nav-links a:hover {
+    color: var(--neon-cyan);
+    transform: scale(1.2) rotate(-2deg);
+}
+
+/* --- INICIO (HERO SECTION) --- */
+.hero {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/static/banner.png');
+    background-size: cover;
+    background-position: center;
+    border-bottom: 5px solid var(--neon-purple);
+}
+
+.hero h1 {
+    font-family: 'Orbitron';
+    font-size: 5rem;
     margin-bottom: 10px;
-    border-radius: 5px;
-    font-family: inherit;
 }
 
-.feed-card {
-    background: var(--card-bg);
-    border: 1px solid #222;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
+.hero p {
+    font-size: 1.5rem;
+    letter-spacing: 5px;
+    color: var(--neon-cyan);
+    margin-bottom: 30px;
 }
 
-.media-box {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background: #000;
-    margin-top: 15px;
-    border-radius: 5px;
+/* --- VIDEO GRID --- */
+.container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.video-card {
+    background: var(--glass);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;
     overflow: hidden;
+    transition: 0.5s;
+    position: relative;
 }
 
-.media-box img, .media-box iframe {
+.video-card:hover {
+    border-color: var(--neon-cyan);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+}
+
+.video-thumb {
     width: 100%;
-    height: 100%;
+    aspect-ratio: 16/9;
     object-fit: cover;
-    border: none;
+}
+
+.video-info { padding: 20px; text-align: center; }
+
+/* --- EASTER EGG --- */
+.omnipresente {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+    padding-bottom: 50px;
+    opacity: 0.3;
+    transition: 1s;
+}
+
+.omnipresente:hover { opacity: 1; }
+
+.bubble {
+    background: white;
+    color: black;
+    padding: 15px;
+    border-radius: 20px;
+    position: relative;
+    font-weight: bold;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px white;
+}
+
+.bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; left: 50%;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid white;
 }
