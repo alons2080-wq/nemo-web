@@ -7,44 +7,34 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-
     <nav class="navbar">
         <div class="nav-brand">
-            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="height: 40px; margin-right: 10px; vertical-align: middle;">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="height: 45px; margin-right: 15px;">
             <a href="/" class="nav-logo">NEMO<span>_704</span></a>
         </div>
         <div class="nav-links">
             <a href="/">INICIO</a>
-            <a href="/videos" style="color: var(--neon-cyan);">VIDEOS</a>
+            <a href="/videos">VIDEOS</a>
         </div>
     </nav>
 
     <div class="container">
-        <h1 style="text-align:center; font-family:'Orbitron'; margin: 50px 0; font-size:3rem; text-transform: uppercase;">Videos Populares</h1>
-        
+        <h1 style="text-align:center; font-family:'Orbitron'; margin: 50px 0; font-size:3rem; color: var(--neon-cyan);">TOP CONTENT</h1>
         <div class="video-grid">
             <div class="video-card">
                 <iframe class="video-thumb" src="https://www.youtube.com/embed/C1eMcl8txW4" allowfullscreen></iframe>
-                <div style="padding:20px; text-align:center; font-family:'Orbitron';">
-                    <h3>LA NOCHE MÁS DIFÍCIL DE CADA FNAF</h3>
-                </div>
+                <div style="padding:20px; text-align:center; font-family:'Orbitron';"><h3>LA NOCHE MÁS DIFÍCIL DE FNAF</h3></div>
             </div>
-
             <div class="video-card">
                 <iframe class="video-thumb" src="https://www.youtube.com/embed/LhzGgUS2mIQ" allowfullscreen></iframe>
-                <div style="padding:20px; text-align:center; font-family:'Orbitron';">
-                    <h3>FNAF 2 SIN MÁSCARA</h3>
-                </div>
+                <div style="padding:20px; text-align:center; font-family:'Orbitron';"><h3>FNAF 2 SIN MÁSCARA</h3></div>
             </div>
-
             <div class="video-card">
                 <iframe class="video-thumb" src="https://www.youtube.com/embed/C3Yl7DV4ehQ" allowfullscreen></iframe>
-                <div style="padding:20px; text-align:center; font-family:'Orbitron';">
-                    <h3>FNAF 1 SIN PUERTAS</h3>
-                </div>
+                <div style="padding:20px; text-align:center; font-family:'Orbitron';"><h3>FNAF 1 SIN PUERTAS</h3></div>
             </div>
         </div>
     </div>
-
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
