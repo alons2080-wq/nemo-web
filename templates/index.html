@@ -2,50 +2,37 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEMO_704 | Oficial</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>NEMO_704 | OFFICIAL SITE</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <header class="main-header">
-        <div class="navbar">
-            <div class="logo-circle">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Nemo Logo">
-            </div>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="/" class="active">INICIO</a></li>
-                    <li><a href="/videos">VIDEOS</a></li>
-                    <li><a href="/foro">FORO</a></li>
-                </ul>
-            </nav>
+
+    <nav class="navbar">
+        <a href="/" class="nav-logo">NEMO<span>_704</span></a>
+        <div class="nav-links">
+            <a href="/"><i class="fas fa-home"></i> INICIO</a>
+            <a href="/videos"><i class="fas fa-play"></i> VIDEOS</a>
         </div>
-    </header>
+    </nav>
 
-    <main class="hero-container">
-        <section class="hero-banner" style="background-image: url('{{ url_for('static', filename='images/banner.jpg') }}');">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <h1 class="main-title">NEMO_704</h1>
-                <p class="subtitle">FNAF | GEOMETRY DASH | RETOS IMPOSIBLES</p>
-                
-                <div class="social-box">
-                    <a href="https://discord.gg/mmsr2wPgh5" target="_blank" class="social-icon discord"><i class="fa-brands fa-discord"></i></a>
-                    <a href="https://tiktok.com/@n.e.m.o_704" target="_blank" class="social-icon tiktok"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="https://instagram.com/n.e.m.o.704" target="_blank" class="social-icon insta"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://x.com/nemo_704" target="_blank" class="social-icon x-twitter"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="https://www.youtube.com/@nemo_704" target="_blank" class="social-icon youtube"><i class="fa-brands fa-youtube"></i></a>
-                </div>
+    <section class="hero">
+        <h1 class="animate-glow">NEMO_704</h1>
+        <p>RECORDS & IMPOSSIBLE CHALLENGES</p>
+        <div class="social-icons">
             </div>
-        </section>
-    </main>
+    </section>
 
-    <footer class="footer">
-        <p>&copy; 2026 NEMO_704 - Una pagina hecha por la comunidad</p>
-    </footer>
+    <div class="container" style="text-align: center;">
+        <h2 style="font-family: 'Orbitron'; margin-bottom: 40px;">BIENVENIDO AL ABISMO</h2>
+        <img src="{{ url_for('static', filename='banner_central.png') }}" style="width: 100%; border-radius: 20px; border: 2px solid var(--neon-purple);">
+    </div>
+
+    <div class="omnipresente">
+        <div class="bubble">Hola soy MrRat0 y esto es un recordatorio de que soy omnipresente</div>
+        <img src="{{ url_for('static', filename='easter.png') }}" style="width: 150px; animation: float 4s infinite ease-in-out;">
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
-
-
