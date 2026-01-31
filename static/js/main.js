@@ -1,32 +1,22 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const themeBtn = document.getElementById('theme-switch');
-    const body = document.body;
-    const icon = themeBtn.querySelector('i');
+// Crear el elemento del cursor dinámicamente
+const cursor = document.createElement('div');
+cursor.id = 'custom-cursor';
+document.body.appendChild(cursor);
 
-    // MODO CLARO/OSCURO
-    if (localStorage.getItem('theme') === 'light') {
-        body.classList.add('light-mode');
-        icon.classList.replace('fa-moon', 'fa-sun');
-    }
+document.addEventListener('mousemove', (e) => {
+    // Sincroniza la posición del div con el mouse real
+    cursor.style.left = `${e.clientX}px`;
+    cursor.style.top = `${e.clientY}px`;
+});
 
-    themeBtn.addEventListener('click', () => {
-        body.classList.toggle('light-mode');
-        const isLight = body.classList.contains('light-mode');
-        icon.classList.replace(isLight ? 'fa-moon' : 'fa-sun', isLight ? 'fa-sun' : 'fa-moon');
-        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+// Detectar cuando el mouse está sobre algo interactivo
+const links = document.querySelectorAll('a, button, .social-link, iframe');
+
+links.forEach(link => {
+    link.addEventListener('mouseenter', () => {
+        cursor.classList.add('link-hover');
     });
-
-    // TWITCH REAL TIME
-    const player = new Twitch.Player("twitch-embed-hidden", {
-        channel: "nemo_704",
-        width: 10, height: 10, muted: true
-    });
-
-    player.addEventListener(Twitch.Player.ONLINE, () => {
-        document.getElementById('live-status').classList.remove('hidden');
-    });
-
-    player.addEventListener(Twitch.Player.OFFLINE, () => {
-        document.getElementById('live-status').classList.add('hidden');
+    link.addEventListener('mouseleave', () => {
+        cursor.classList.remove('link-hover');
     });
 });
