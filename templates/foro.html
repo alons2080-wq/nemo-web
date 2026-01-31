@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>FORO | NEMO_704</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body class="foro-page">
+<body>
     <header class="main-header">
         <div class="navbar">
             <div class="logo-circle"><img src="{{ url_for('static', filename='images/logo.png') }}"></div>
@@ -33,38 +32,70 @@
                     <button type="submit" class="btn-nemo">ENTRAR</button>
                 </form>
             </div>
-            <div class="auth-card register">
-                <h3>CREAR CUENTA</h3>
+            <div class="auth-card">
+                <h3>REGISTRARSE</h3>
                 <form action="/register" method="POST">
                     <input type="text" name="username" placeholder="Nuevo Usuario" required>
                     <input type="password" name="password" placeholder="Contraseña" required>
-                    <button type="submit" class="btn-nemo">REGISTRARSE</button>
+                    <button type="submit" class="btn-nemo">CREAR CUENTA</button>
                 </form>
             </div>
         </div>
         {% else %}
         <div class="forum-wrapper">
             <div class="forum-user-bar">
-                <p>Hola, <b>{{ session['user'] }}</b></p>
-                <a href="/logout" class="logout-link">Cerrar Sesión</a>
+                <p>Bienvenido, <b>{{ session['user'] }}</b></p>
+                <a href="/logout" class="logout-link"><i class="fas fa-power-off"></i> Cerrar Sesión</a>
             </div>
 
             <form action="/post" method="POST" class="post-form">
-                <textarea name="content" placeholder="Escribe algo épico..." required></textarea>
-                <button type="submit" class="btn-nemo">PUBLICAR MENSAJE</button>
+                <textarea name="content" placeholder="Escribe un nuevo post..." required></textarea>
+                <div class="multimedia-inputs">
+                    <input type="text" name="image_url" placeholder="URL de Imagen">
+                    <input type="text" name="video_url" placeholder="URL de YouTube">
+                </div>
+                <button type="submit" class="btn-nemo">PUBLICAR</button>
             </form>
 
-            <h2 class="feed-title">Actividad Reciente</h2>
-            <div class="posts-container">
-                {% for post in posts %}
-                <div class="post-card">
+            <h2 class="feed-title">MURMULLOS DE LA COMUNIDAD</h2>
+
+            {% for post in posts %}
+            <div class="post-card">
+                <div class="post-header">
                     <span class="author">@{{ post.author }}</span>
-                    <p class="content">{{ post.content }}</p>
+                    <span class="time">{{ post.timestamp[:16] }}</span>
                 </div>
-                {% else %}
-                <p class="empty">No hay mensajes. ¡Sé el primero!</p>
-                {% endfor %}
+                <p class="content">{{ post.content }}</p>
+
+                {% if post.image_url %}
+                    <img src="{{ post.image_url }}" class="post-media-img" onerror="this.style.display='none'">
+                {% endif %}
+
+                {% if post.video_url %}
+                    <div class="post-video-container">
+                        <iframe src="{{ post.video_url }}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                {% endif %}
+
+                <div class="post-actions">
+                    <a href="/like/{{ post.id }}" class="action-btn {% if post.user_liked %}active{% endif %}">
+                        <i class="fas fa-heart"></i> {{ post.likes_count }}
+                    </a>
+                </div>
+
+                <div class="comments-section">
+                    {% for c in post.comments %}
+                    <div class="comment">
+                        <span class="c-user">{{ c.author }}:</span> {{ c.text }}
+                    </div>
+                    {% endfor %}
+                    <form action="/comment/{{ post.id }}" method="POST" class="comment-form">
+                        <input type="text" name="comment_text" placeholder="Comentar..." required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
             </div>
+            {% endfor %}
         </div>
         {% endif %}
     </main>
