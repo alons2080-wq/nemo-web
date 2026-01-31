@@ -2,82 +2,126 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>FORO | NEMO_704 {{ title }}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORO | NEMO_704</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body class="dark-theme">
-    <header class="main-header">
-        <nav class="navbar">
-            <a href="/">INICIO</a>
-            <a href="/videos">VIDEOS</a>
-            <a href="/foro" class="active">FORO</a>
-        </nav>
-    </header>
+<body>
 
-    <main class="container">
-        {% if session.get('user') %}
-        <div class="forum-header">
-            <p>Bienvenido, <strong>{{ session['user'] }}</strong></p>
-            <a href="/logout" class="logout-btn">Cerrar Sesión</a>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">NEMO<span>_704</span></a>
+            <div class="nav-links">
+                <a href="/">INICIO</a>
+                <a href="/videos">VIDEOS</a>
+                <a href="/foro" class="active">FORO</a>
+            </div>
         </div>
+    </nav>
 
-        <form action="/post" method="POST" class="post-form" enctype="multipart/form-data">
-            <textarea name="content" placeholder="Escribe un nuevo post..." required></textarea>
-            
-            <div class="multimedia-grid">
-                <div class="file-box">
-                    <label for="img"><i class="fas fa-camera"></i> Subir Foto</label>
-                    <input type="file" name="image_file" id="img" accept="image/*">
-                </div>
-                <div class="file-box">
-                    <label for="vid"><i class="fas fa-video"></i> Subir Video</label>
-                    <input type="file" name="video_file" id="vid" accept="video/*">
+    <div class="main-container">
+
+        {% if not session.get('user') %}
+            <div class="login-wrapper">
+                <div class="login-card">
+                    <h2 class="section-title" style="font-size: 1.8rem;">ÚNETE AL SQUAD</h2>
+                    
+                    {% if error %}
+                    <div style="color: #ff3333; margin-bottom: 15px; border: 1px solid #ff3333; padding: 10px; border-radius: 5px;">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+
+                    <form action="/login" method="POST">
+                        <input type="text" name="username" placeholder="Nombre de Usuario (ej. MrRat0)" required>
+                        <input type="password" name="password" placeholder="Contraseña" required>
+                        <button type="submit" class="btn-glow" style="width:100%">ENTRAR</button>
+                    </form>
+                    
+                    <p style="margin-top: 20px; color: #888;">¿Nuevo aquí?</p>
+                    <form action="/register" method="POST" style="margin-top: 10px;">
+                        <input type="text" name="username" placeholder="Elige tu usuario" required>
+                        <input type="password" name="password" placeholder="Elige contraseña" required>
+                        <button type="submit" class="btn-nemo" style="width:100%">REGISTRARSE</button>
+                    </form>
                 </div>
             </div>
-            
-            <button type="submit" class="btn-nemo">PUBLICAR</button>
-        </form>
-
-        <h2 class="section-title">{{ title }}</h2>
-
-        <div class="posts-feed">
-            {% for post in posts %}
-            <div class="post-card">
-                <div class="post-info">
-                    <span class="author">@{{ post.author }}</span>
-                    <span class="date">{{ post.timestamp[:10] }}</span>
+        {% else %}
+            <div style="background: rgba(20,20,20,0.8); padding: 20px; border-radius: 15px; border: 1px solid var(--neon-cyan); margin-bottom: 40px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="color: white;">Hola, <span style="color: var(--neon-cyan)">{{ session['user'] }}</span></h3>
+                    <a href="/logout" class="btn-nemo" style="padding: 5px 15px; font-size: 12px;">CERRAR SESIÓN</a>
                 </div>
-                <p class="post-text">{{ post.content }}</p>
+
+                <form action="/post" method="POST" enctype="multipart/form-data">
+                    <textarea name="content" placeholder="¿Qué descubriste hoy? Escribe algo..." rows="3" required></textarea>
+                    
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 200px;">
+                            <label style="color: #aaa; font-size: 14px; display: block; margin-bottom: 5px;"><i class="fas fa-image"></i> Subir Imagen</label>
+                            <input type="file" name="image_file" accept="image/*" style="padding: 5px;">
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <label style="color: #aaa; font-size: 14px; display: block; margin-bottom: 5px;"><i class="fas fa-video"></i> Subir Video</label>
+                            <input type="file" name="video_file" accept="video/*" style="padding: 5px;">
+                        </div>
+                    </div>
+
+                    <div style="text-align: right; margin-top: 15px;">
+                        <button type="submit" class="btn-glow">PUBLICAR</button>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+
+        <h2 class="section-title">ACTIVIDAD RECIENTE</h2>
+        
+        <div class="video-grid" style="display: flex; flex-direction: column; gap: 20px;">
+            {% for post in posts %}
+            <div class="video-card" style="padding: 20px; display: block;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+                    <span style="color: var(--neon-cyan); font-weight: bold; font-family: 'Orbitron', sans-serif;">@{{ post.author }}</span>
+                    <span style="color: #666; font-size: 12px;">{{ post.timestamp[:16] }}</span>
+                </div>
+                
+                <p style="font-size: 1.1rem; margin-bottom: 15px; line-height: 1.5;">{{ post.content }}</p>
 
                 {% if post.image_url %}
-                <div class="media-container">
-                    <img src="{{ post.image_url }}" class="post-img" onclick="window.open(this.src)">
+                <div style="margin-bottom: 15px; border-radius: 10px; overflow: hidden; border: 1px solid #333;">
+                    <img src="{{ post.image_url }}" style="width: 100%; display: block;">
                 </div>
                 {% endif %}
 
                 {% if post.video_url %}
-                <div class="media-container">
-                    <video controls class="post-video">
-                        <source src="{{ post.video_url }}" type="video/mp4">
-                        Tu navegador no soporta videos.
-                    </video>
+                <div class="video-wrapper" style="margin-bottom: 15px; border-radius: 10px; overflow: hidden;">
+                    {% if "youtube" in post.video_url or "youtu.be" in post.video_url %}
+                        <iframe src="{{ post.video_url.replace('watch?v=', 'embed/') }}" allowfullscreen></iframe>
+                    {% else %}
+                        <video controls style="width: 100%; height: 100%;">
+                            <source src="{{ post.video_url }}" type="video/mp4">
+                        </video>
+                    {% endif %}
                 </div>
                 {% endif %}
+
+                <div style="display: flex; gap: 15px; margin-top: 10px;">
+                    <a href="/like/{{ post.id }}" style="color: {{ 'var(--neon-purple)' if post.user_liked else '#888' }}; text-decoration: none; font-size: 1.1rem; transition: 0.3s;">
+                        <i class="{{ 'fas' if post.user_liked else 'far' }} fa-heart"></i> {{ post.likes_count }}
+                    </a>
+                </div>
             </div>
+            {% else %}
+                <p style="text-align: center; color: #666; padding: 50px;">Aún no hay posts. ¡Sé el primero en escribir!</p>
             {% endfor %}
         </div>
-        
-        {% else %}
-        <div class="auth-container">
-            <h3>ÚNETE A LA COMUNIDAD</h3>
-            <form action="/login" method="POST">
-                <input type="text" name="username" placeholder="Usuario" required>
-                <input type="password" name="password" placeholder="Contraseña" required>
-                <button type="submit" class="btn-nemo">ENTRAR</button>
-            </form>
-        </div>
-        {% endif %}
-    </main>
+
+    </div>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 <span style="color:var(--neon-cyan)">NEMO_704</span>. Derechos Reservados.</p>
+    </footer>
+
 </body>
 </html>
