@@ -108,219 +108,71 @@ body {
 .footer { padding: 30px; text-align: center; border-top: 1px solid #111; margin-top: 50px; }
 .footer p { font-size: 13px; color: #666; letter-spacing: 1px; }
 
-/* =========================================
-   FORO PRO - ESTILO NEMO_704
-   ========================================= */
+/* --- FORO NEMO V3 (SUPABASE EDITION) --- */
+.container { max-width: 800px; margin: 0 auto; padding: 20px; }
 
-/* Contenedor Principal */
-.container {
-    max-width: 1000px;
-    margin: 40px auto;
-    padding: 0 20px;
-}
-
-/* --- AUTENTICACIÓN (LOGIN/REGISTRO) --- */
-.auth-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
-}
-
-.auth-card {
-    background: rgba(15, 15, 20, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 30px;
-    border-radius: 20px;
-    border: 1px solid rgba(0, 243, 255, 0.2);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    transition: 0.3s;
-}
-
-.auth-card:hover {
-    border-color: var(--cyan);
-    box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
-}
-
-.auth-card h3 {
-    font-family: 'Orbitron', sans-serif;
-    color: var(--cyan);
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    text-align: center;
-    letter-spacing: 2px;
-}
-
-.auth-card input {
-    width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 15px;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid #333;
-    border-radius: 8px;
-    color: white;
-    font-family: 'Rajdhani', sans-serif;
-    transition: 0.3s;
-}
-
-.auth-card input:focus {
-    border-color: var(--cyan);
-    outline: none;
-    background: rgba(0, 0, 0, 0.8);
-}
-
-/* --- INTERFAZ DEL FORO (LOGUEADO) --- */
 .forum-wrapper {
-    background: rgba(10, 10, 12, 0.9);
-    border-radius: 25px;
-    padding: 40px;
+    background: #0d0d0d;
     border: 1px solid #1a1a1a;
+    border-radius: 15px;
+    padding: 25px;
 }
 
-.forum-user-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* Caja de publicación elegante */
+.post-form {
+    background: #151515;
+    padding: 20px;
+    border-radius: 12px;
     margin-bottom: 30px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid #222;
 }
 
-.forum-user-bar p { font-size: 1.1rem; }
-.forum-user-bar b { color: var(--cyan); text-shadow: 0 0 5px var(--cyan); }
-
-.logout-link {
-    background: rgba(255, 0, 85, 0.1);
-    color: #ff0055;
-    padding: 8px 15px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.8rem;
-    transition: 0.3s;
-    border: 1px solid transparent;
-}
-
-.logout-link:hover {
-    background: #ff0055;
-    color: white;
-    box-shadow: 0 0 15px rgba(255, 0, 85, 0.4);
-}
-
-/* Caja de Publicación */
 .post-form textarea {
     width: 100%;
-    height: 120px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #333;
+    color: white;
+    font-size: 16px;
+    padding: 10px 0;
+    margin-bottom: 15px;
+    resize: none;
+}
+
+.multimedia-inputs { display: flex; gap: 10px; }
+.multimedia-inputs input {
     background: #000;
     border: 1px solid #222;
-    border-radius: 15px;
-    padding: 20px;
-    color: white;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1.1rem;
-    resize: none;
-    margin-bottom: 15px;
-    transition: 0.3s;
-}
-
-.post-form textarea:focus {
-    border-color: var(--cyan);
-    box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
-}
-
-/* BOTÓN NEMO PRO */
-.btn-nemo {
-    width: 100%;
-    padding: 15px;
-    background: linear-gradient(90deg, #00f3ff, #0099ff);
-    color: #000;
-    border: none;
-    border-radius: 12px;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 900;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.btn-nemo:hover {
-    transform: scale(1.02);
-    filter: brightness(1.2);
-    box-shadow: 0 0 25px rgba(0, 243, 255, 0.5);
-}
-
-/* Feed de Mensajes */
-.feed-title {
-    margin-top: 50px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.5rem;
-    color: white;
-    border-left: 4px solid var(--cyan);
-    padding-left: 15px;
-    margin-bottom: 25px;
-}
-
-.post-card {
-    background: rgba(255, 255, 255, 0.03);
-    margin-bottom: 20px;
-    padding: 25px;
-    border-radius: 15px;
-    border: 1px solid rgba(255,255,255,0.05);
-    transition: 0.3s;
-}
-
-.post-card:hover {
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateX(10px);
-}
-
-.post-card .author {
-    display: block;
     color: var(--cyan);
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    flex: 1;
+}
+
+/* El botón ya no es una barra gigante */
+.btn-nemo {
+    display: inline-block;
+    width: auto;
+    padding: 10px 25px;
+    background: var(--cyan);
+    color: black;
+    font-family: 'Orbitron';
+    border-radius: 8px;
     font-weight: bold;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem;
-    margin-bottom: 10px;
+    margin-top: 15px;
+    transition: 0.3s;
 }
 
-.post-card .content {
-    font-size: 1.1rem;
-    line-height: 1.4;
-    color: #ddd;
+.btn-nemo:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 243, 255, 0.4); }
+
+/* Tarjetas de Post */
+.post-card {
+    background: #111;
+    border: 1px solid #1a1a1a;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
-.empty {
-    text-align: center;
-    color: #555;
-    padding: 40px;
-    font-style: italic;
-}
-
-/* --- AJUSTES FORO SQLITE --- */
-.post-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
-.time { font-size: 11px; color: #555; font-family: 'Orbitron'; }
-
-.post-media-img {
-    width: 100%; max-height: 400px; object-fit: contain;
-    border-radius: 12px; margin: 15px 0; background: #000;
-}
-
-.post-actions { margin: 15px 0; padding-top: 10px; border-top: 1px solid #1a1a1a; }
-.action-btn { color: #555; text-decoration: none; font-family: 'Orbitron'; transition: 0.3s; }
-.action-btn.active { color: #ff0055; text-shadow: 0 0 10px #ff0055; }
-
-.comments-section {
-    background: rgba(0,0,0,0.5); border-radius: 10px; padding: 15px; margin-top: 10px;
-}
-.comment { font-size: 14px; margin-bottom: 8px; border-bottom: 1px solid #111; padding-bottom: 5px; }
-.c-user { color: var(--cyan); font-weight: bold; margin-right: 5px; }
-
-.comment-form { display: flex; gap: 8px; margin-top: 12px; }
-.comment-form input {
-    flex: 1; background: #0a0a0a; border: 1px solid #222; color: white;
-    padding: 8px 12px; border-radius: 6px; font-family: 'Rajdhani';
-}
-.comment-form button {
-    background: var(--cyan); border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer;
-}
+.author { color: var(--cyan); font-family: 'Orbitron'; font-size: 13px; }
