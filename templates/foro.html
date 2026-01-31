@@ -7,48 +7,57 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-container">
-            <a href="/" class="nav-logo">NEMO<span>_104</span></a>
-            <div class="nav-links">
-                <a href="/">INICIO</a>
-                <a href="/videos">VIDEOS</a>
-                <a href="/foro" class="active">FORO</a>
-            </div>
+        <a href="/" class="nav-logo">NEMO<span>_704</span></a>
+        <div class="nav-links">
+            <a href="/">INICIO</a>
+            <a href="/videos">VIDEOS</a>
+            <a href="/foro" class="active">FORO</a>
         </div>
     </nav>
 
     <div class="main-container">
-        {% if session.get('user') %}
-            <div class="post-form-card">
-                <p>Bienvenido, <strong>{{ session['user'] }}</strong> | <a href="/logout">Cerrar Sesión</a></p>
-                <form action="/post" method="POST">
-                    <textarea name="content" placeholder="Escribe un nuevo post..." required></textarea>
-                    <div class="input-group">
-                        <input type="text" name="image_url" placeholder="URL de Imagen">
-                        <input type="text" name="video_url" placeholder="URL de YouTube">
-                    </div>
-                    <button type="submit" class="btn-pub">PUBLICAR</button>
+        {% if not session.get('user') %}
+            <div class="post-form-card" style="text-align: center;">
+                <h2 style="font-family: 'Orbitron';">ÚNETE A LA COMUNIDAD</h2>
+                <form action="/login" method="POST" style="max-width: 300px; margin: 20px auto;">
+                    <input type="text" name="username" placeholder="Usuario" required>
+                    <button type="submit" class="btn-glow">ENTRAR</button>
                 </form>
             </div>
         {% else %}
-            <div class="login-box">
-                <h2>ÚNETE A LA COMUNIDAD</h2>
-                <form action="/login" method="POST">
-                    <input type="text" name="username" placeholder="Usuario" required>
-                    <input type="password" name="password" placeholder="Contraseña" required>
-                    <button type="submit" class="btn-pub">ENTRAR</button>
+            <div class="post-form-card">
+                <p>Bienvenido, <strong>{{ session['user'] }}</strong> | <a href="/logout" style="color:var(--neon-purple)">Salir</a></p>
+                <form action="/post" method="POST">
+                    <textarea name="content" placeholder="Escribe un nuevo post..." required></textarea>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" name="image_url" placeholder="URL de Imagen">
+                        <input type="text" name="video_url" placeholder="URL de YouTube">
+                    </div>
+                    <button type="submit" class="btn-glow">PUBLICAR</button>
                 </form>
             </div>
         {% endif %}
 
-        <h2 class="section-title">MURMULLOS DE LA COMUNIDAD</h2>
+        <h2 style="font-family: 'Orbitron'; border-left: 4px solid var(--neon-cyan); padding-left: 15px;">MURMULLOS DE LA COMUNIDAD</h2>
+        
         <div class="feed">
             {% for post in posts %}
-                <div class="post-card">
-                    <h4>@{{ post.author }}</h4>
-                    <p>{{ post.content }}</p>
-                    {% if post.image_url %}<img src="{{ post.image_url }}" class="post-img">{% endif %}
+            <div class="feed-card">
+                <h4 style="color: var(--neon-cyan); margin: 0;">@{{ post.author }}</h4>
+                <p style="font-size: 1.1rem; margin: 15px 0;">{{ post.content }}</p>
+
+                {% if post.image_url %}
+                <div class="media-box">
+                    <img src="{{ post.image_url }}">
                 </div>
+                {% endif %}
+
+                {% if post.video_url %}
+                <div class="media-box">
+                    <iframe src="{{ post.video_url.replace('watch?v=', 'embed/') }}" allowfullscreen></iframe>
+                </div>
+                {% endif %}
+            </div>
             {% endfor %}
         </div>
     </div>
