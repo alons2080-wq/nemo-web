@@ -42,6 +42,11 @@ body::before {
     position: sticky; top: 0; z-index: 1000;
 }
 
+.nav-brand {
+    display: flex;
+    align-items: center;
+}
+
 .nav-logo {
     font-family: 'Orbitron';
     font-size: 2.2rem;
@@ -169,3 +174,4 @@ body::before {
 .ig:hover { color: #e1306c; filter: drop-shadow(0 0 15px #e1306c); }
 .x:hover { color: #1da1f2; filter: drop-shadow(0 0 15px #1da1f2); }
 .dc:hover { color: #5865f2; filter: drop-shadow(0 0 15px #5865f2); }
+
