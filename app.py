@@ -10,5 +10,10 @@ def index():
 def videos():
     return render_template('videos.html')
 
+@app.route('/mobile')
+def mobile():
+    return render_template('mobile.html')
+
 if __name__ == '__main__':
     app.run(debug=True, port=704)
+
