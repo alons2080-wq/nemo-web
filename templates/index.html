@@ -2,9 +2,12 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>NEMO_704 | Official Page</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEMO_704 | OFFICIAL</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
@@ -18,19 +21,30 @@
 
     <section class="hero">
         <h1 class="glitch-title">NEMO_704</h1>
-        <p style="letter-spacing: 10px; color: var(--neon-cyan);">THE ULTIMATE CHALLENGE</p>
+        <p style="letter-spacing: 10px; color: var(--neon-cyan); margin-bottom: 30px;">Retos imposibles y romperse mentalmente</p>
+        
+        <div class="social-grid">
+            <a href="https://www.youtube.com/@NEMO_704" target="_blank" class="social-link yt" title="Canal Principal">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="#" target="_blank" class="social-link yt-sec" title="Canal Secundario">
+                <i class="fas fa-play-circle"></i>
+            </a>
+            <a href="#" target="_blank" class="social-link tt" title="TikTok">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="#" target="_blank" class="social-link ig" title="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" target="_blank" class="social-link x" title="X (Twitter)">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+            <a href="#" target="_blank" class="social-link dc" title="Discord">
+                <i class="fab fa-discord"></i>
+            </a>
+        </div>
     </section>
-
-    <div class="banner-container">
-        <img src="{{ url_for('static', filename='banner_central.png') }}" class="banner-glow">
-    </div>
-
-    <div class="easter-egg-section">
-        <div class="rat-bubble">Hola soy MrRat0 y esto es un recordatorio de que soy omnipresente xd</div>
-        <img src="{{ url_for('static', filename='easter.png') }}" class="rat-img">
-    </div>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
-
