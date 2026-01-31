@@ -175,3 +175,27 @@ body::before {
 .x:hover { color: #1da1f2; filter: drop-shadow(0 0 15px #1da1f2); }
 .dc:hover { color: #5865f2; filter: drop-shadow(0 0 15px #5865f2); }
 
+/* Escondemos el cursor real en toda la página */
+html, body, a, button {
+    cursor: none !important;
+}
+
+/* El contenedor del nuevo mouse */
+#custom-cursor {
+    width: 32px;
+    height: 32px;
+    background-image: url('../images/cursor_normal.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: fixed;
+    pointer-events: none; /* Importante: para que no bloquee los clics */
+    z-index: 10000;
+    transition: transform 0.1s ease-out;
+}
+
+/* Clase para cuando detecta un link */
+#custom-cursor.link-hover {
+    background-image: url('../images/cursor_link.png');
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 8px var(--neon-cyan));
+}
