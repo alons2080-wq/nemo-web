@@ -5,10 +5,10 @@
     --neon-purple: #bc13fe;
     --neon-pink: #ff0055;
     --bg-dark: #020202;
-    --glass: rgba(255, 255, 255, 0.05);
+    --glass: rgba(255, 255, 255, 0.03);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
 
 body {
     background-color: var(--bg-dark);
@@ -17,140 +17,160 @@ body {
     overflow-x: hidden;
 }
 
-/* --- ANIMACIONES ÉPICAS --- */
-@keyframes glow {
-    0% { text-shadow: 0 0 10px var(--neon-cyan); }
-    50% { text-shadow: 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-purple); }
-    100% { text-shadow: 0 0 10px var(--neon-cyan); }
+/* --- EFECTO CRT SCANLINE --- */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 9999;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-/* --- NAVBAR PRO --- */
+/* --- NAVBAR FUTURISTA --- */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 8%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
+    padding: 25px 8%;
+    background: rgba(0, 0, 0, 0.9);
     border-bottom: 2px solid var(--neon-cyan);
+    box-shadow: 0 0 20px var(--neon-cyan);
     position: sticky; top: 0; z-index: 1000;
 }
 
 .nav-logo {
     font-family: 'Orbitron';
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: white;
     text-decoration: none;
-    animation: glow 3s infinite;
+    text-shadow: 0 0 10px var(--neon-cyan);
 }
 
 .nav-links a {
     color: white;
     text-decoration: none;
-    margin-left: 30px;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: inline-block;
+    margin-left: 40px;
+    font-weight: 700;
+    font-family: 'Orbitron';
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    transition: 0.4s;
 }
 
 .nav-links a:hover {
     color: var(--neon-cyan);
-    transform: scale(1.2) rotate(-2deg);
+    text-shadow: 0 0 15px var(--neon-cyan);
+    letter-spacing: 5px;
 }
 
-/* --- INICIO (HERO SECTION) --- */
+/* --- HERO SECTION --- */
 .hero {
-    height: 90vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/static/banner.png');
-    background-size: cover;
-    background-position: center;
-    border-bottom: 5px solid var(--neon-purple);
+    text-align: center;
+    background: radial-gradient(circle, rgba(188,19,254,0.1) 0%, rgba(0,0,0,1) 70%);
 }
 
-.hero h1 {
+.glitch-title {
     font-family: 'Orbitron';
-    font-size: 5rem;
-    margin-bottom: 10px;
+    font-size: 6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    position: relative;
+    animation: float 4s infinite ease-in-out;
 }
 
-.hero p {
-    font-size: 1.5rem;
-    letter-spacing: 5px;
-    color: var(--neon-cyan);
-    margin-bottom: 30px;
+@keyframes float {
+    0%, 100% { transform: translateY(0); text-shadow: 0 0 20px var(--neon-cyan); }
+    50% { transform: translateY(-20px); text-shadow: 0 0 40px var(--neon-purple); }
 }
 
-/* --- VIDEO GRID --- */
-.container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
+/* --- BANNER CENTRAL --- */
+.banner-container {
+    max-width: 1200px;
+    margin: -50px auto 100px;
+    padding: 0 20px;
+}
 
+.banner-glow {
+    width: 100%;
+    border-radius: 20px;
+    border: 3px solid var(--neon-purple);
+    box-shadow: 0 0 50px rgba(188, 19, 254, 0.4);
+    transition: 0.8s;
+}
+
+.banner-glow:hover {
+    box-shadow: 0 0 80px var(--neon-cyan);
+    border-color: var(--neon-cyan);
+    transform: scale(1.02);
+}
+
+/* --- VIDEOS GRID --- */
 .video-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 40px;
+    padding: 50px 8%;
 }
 
 .video-card {
     background: var(--glass);
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     overflow: hidden;
-    transition: 0.5s;
-    position: relative;
+    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .video-card:hover {
+    transform: translateY(-15px) rotate(1deg);
     border-color: var(--neon-cyan);
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 243, 255, 0.2);
 }
 
 .video-thumb {
     width: 100%;
     aspect-ratio: 16/9;
-    object-fit: cover;
+    border: none;
 }
 
-.video-info { padding: 20px; text-align: center; }
-
-/* --- EASTER EGG --- */
-.omnipresente {
+/* --- EASTER EGG OMNIPRESENTE --- */
+.easter-egg-section {
+    padding: 100px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 100px;
-    padding-bottom: 50px;
-    opacity: 0.3;
-    transition: 1s;
+    background: linear-gradient(to bottom, transparent, #0a0010);
 }
 
-.omnipresente:hover { opacity: 1; }
-
-.bubble {
+.rat-bubble {
     background: white;
     color: black;
-    padding: 15px;
-    border-radius: 20px;
-    position: relative;
-    font-weight: bold;
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-weight: 900;
+    font-size: 1.2rem;
     margin-bottom: 20px;
-    box-shadow: 0 0 20px white;
+    box-shadow: 0 0 30px white;
+    position: relative;
 }
 
-.bubble::after {
-    content: '';
-    position: absolute;
-    bottom: -10px; left: 50%;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid white;
+.rat-img {
+    width: 200px;
+    filter: drop-shadow(0 0 10px var(--neon-purple));
+    animation: rat-shake 0.5s infinite;
+}
+
+@keyframes rat-shake {
+    0% { transform: rotate(0); }
+    25% { transform: rotate(2deg); }
+    75% { transform: rotate(-2deg); }
+    100% { transform: rotate(0); }
 }
