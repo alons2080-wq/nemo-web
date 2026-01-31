@@ -141,36 +141,31 @@ body::before {
     border: none;
 }
 
-/* --- EASTER EGG OMNIPRESENTE --- */
-.easter-egg-section {
-    padding: 100px 0;
+/* --- ESTILO DE REDES SOCIALES --- */
+.social-grid {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: linear-gradient(to bottom, transparent, #0a0010);
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-.rat-bubble {
-    background: white;
-    color: black;
-    padding: 15px 25px;
-    border-radius: 30px;
-    font-weight: 900;
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    box-shadow: 0 0 30px white;
-    position: relative;
+.social-link {
+    font-size: 2.5rem;
+    color: white;
+    text-decoration: none;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
 }
 
-.rat-img {
-    width: 200px;
-    filter: drop-shadow(0 0 10px var(--neon-purple));
-    animation: rat-shake 0.5s infinite;
+.social-link:hover {
+    transform: translateY(-10px) scale(1.2);
 }
 
-@keyframes rat-shake {
-    0% { transform: rotate(0); }
-    25% { transform: rotate(2deg); }
-    75% { transform: rotate(-2deg); }
-    100% { transform: rotate(0); }
-}
+/* Colores de marca al hacer hover */
+.yt:hover { color: #ff0000; filter: drop-shadow(0 0 15px #ff0000); }
+.yt-sec:hover { color: #ff4444; filter: drop-shadow(0 0 15px #ff4444); }
+.tt:hover { color: #ff0050; filter: drop-shadow(0 0 15px #00f2ea); }
+.ig:hover { color: #e1306c; filter: drop-shadow(0 0 15px #e1306c); }
+.x:hover { color: #1da1f2; filter: drop-shadow(0 0 15px #1da1f2); }
+.dc:hover { color: #5865f2; filter: drop-shadow(0 0 15px #5865f2); }
