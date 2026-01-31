@@ -2,106 +2,82 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>FORO | NEMO_704</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>FORO | NEMO_704 {{ title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
+<body class="dark-theme">
     <header class="main-header">
-        <div class="navbar">
-            <div class="logo-circle"><img src="{{ url_for('static', filename='images/logo.png') }}"></div>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="/">INICIO</a></li>
-                    <li><a href="/videos">VIDEOS</a></li>
-                    <li><a href="/foro" class="active">FORO</a></li>
-                </ul>
-            </nav>
-        </div>
+        <nav class="navbar">
+            <a href="/">INICIO</a>
+            <a href="/videos">VIDEOS</a>
+            <a href="/foro" class="active">FORO</a>
+        </nav>
     </header>
 
     <main class="container">
-        {% if not session.get('user') %}
-        <div class="auth-grid">
-            <div class="auth-card">
-                <h3>INICIAR SESIÓN</h3>
-                {% if error %}<p class="error-msg">{{ error }}</p>{% endif %}
-                <form action="/login" method="POST">
-                    <input type="text" name="username" placeholder="Usuario" required>
-                    <input type="password" name="password" placeholder="Contraseña" required>
-                    <button type="submit" class="btn-nemo">ENTRAR</button>
-                </form>
-            </div>
-            <div class="auth-card">
-                <h3>REGISTRARSE</h3>
-                <form action="/register" method="POST">
-                    <input type="text" name="username" placeholder="Nuevo Usuario" required>
-                    <input type="password" name="password" placeholder="Contraseña" required>
-                    <button type="submit" class="btn-nemo">CREAR CUENTA</button>
-                </form>
-            </div>
+        {% if session.get('user') %}
+        <div class="forum-header">
+            <p>Bienvenido, <strong>{{ session['user'] }}</strong></p>
+            <a href="/logout" class="logout-btn">Cerrar Sesión</a>
         </div>
-        {% else %}
-        <div class="forum-wrapper">
-            <div class="forum-user-bar">
-                <p>Bienvenido, <b>{{ session['user'] }}</b></p>
-                <a href="/logout" class="logout-link"><i class="fas fa-power-off"></i> Cerrar Sesión</a>
-            </div>
 
-            <form action="/post" method="POST" class="post-form">
-                <textarea name="content" placeholder="Escribe un nuevo post..." required></textarea>
-                <div class="multimedia-inputs">
-                    <input type="text" name="image_url" placeholder="URL de Imagen">
-                    <input type="text" name="video_url" placeholder="URL de YouTube">
+        <form action="/post" method="POST" class="post-form" enctype="multipart/form-data">
+            <textarea name="content" placeholder="Escribe un nuevo post..." required></textarea>
+            
+            <div class="multimedia-grid">
+                <div class="file-box">
+                    <label for="img"><i class="fas fa-camera"></i> Subir Foto</label>
+                    <input type="file" name="image_file" id="img" accept="image/*">
                 </div>
-                <button type="submit" class="btn-nemo">PUBLICAR</button>
-            </form>
+                <div class="file-box">
+                    <label for="vid"><i class="fas fa-video"></i> Subir Video</label>
+                    <input type="file" name="video_file" id="vid" accept="video/*">
+                </div>
+            </div>
+            
+            <button type="submit" class="btn-nemo">PUBLICAR</button>
+        </form>
 
-            <h2 class="feed-title">MURMULLOS DE LA COMUNIDAD</h2>
+        <h2 class="section-title">{{ title }}</h2>
 
+        <div class="posts-feed">
             {% for post in posts %}
             <div class="post-card">
-                <div class="post-header">
+                <div class="post-info">
                     <span class="author">@{{ post.author }}</span>
-                    <span class="time">{{ post.timestamp[:16] }}</span>
+                    <span class="date">{{ post.timestamp[:10] }}</span>
                 </div>
-                <p class="content">{{ post.content }}</p>
+                <p class="post-text">{{ post.content }}</p>
 
                 {% if post.image_url %}
-                    <img src="{{ post.image_url }}" class="post-media-img" onerror="this.style.display='none'">
+                <div class="media-container">
+                    <img src="{{ post.image_url }}" class="post-img" onclick="window.open(this.src)">
+                </div>
                 {% endif %}
 
                 {% if post.video_url %}
-                    <div class="post-video-container">
-                        <iframe src="{{ post.video_url }}" frameborder="0" allowfullscreen></iframe>
-                    </div>
+                <div class="media-container">
+                    <video controls class="post-video">
+                        <source src="{{ post.video_url }}" type="video/mp4">
+                        Tu navegador no soporta videos.
+                    </video>
+                </div>
                 {% endif %}
-
-                <div class="post-actions">
-                    <a href="/like/{{ post.id }}" class="action-btn {% if post.user_liked %}active{% endif %}">
-                        <i class="fas fa-heart"></i> {{ post.likes_count }}
-                    </a>
-                </div>
-
-                <div class="comments-section">
-                    {% for c in post.comments %}
-                    <div class="comment">
-                        <span class="c-user">{{ c.author }}:</span> {{ c.text }}
-                    </div>
-                    {% endfor %}
-                    <form action="/comment/{{ post.id }}" method="POST" class="comment-form">
-                        <input type="text" name="comment_text" placeholder="Comentar..." required>
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
             </div>
             {% endfor %}
         </div>
+        
+        {% else %}
+        <div class="auth-container">
+            <h3>ÚNETE A LA COMUNIDAD</h3>
+            <form action="/login" method="POST">
+                <input type="text" name="username" placeholder="Usuario" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+                <button type="submit" class="btn-nemo">ENTRAR</button>
+            </form>
+        </div>
         {% endif %}
     </main>
-
-    <footer class="footer">
-        <p>&copy; 2026 Nemo_704 - Una pagina creada por la comunidad</p>
-    </footer>
 </body>
 </html>
